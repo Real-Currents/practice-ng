@@ -1,0 +1,6 @@
+[submodule "ngModal"]
+	path = ngModal
+	url = git@github.com:adamalbrecht/ngModal.git
+[submodule "angularjs-book"]
+	path = angularjs-book
+	url = git@github.com:Revlin/angularjs-book.git
