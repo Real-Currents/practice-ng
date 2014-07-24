@@ -1,6 +1,4 @@
-<!DOCTYPE html 
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -8,6 +6,12 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 
     <link rel="stylesheet" href="jquery/ui/themes/smoothness/jquery-ui.css" />
+	<style>
+		body * span.practice-user-message * {
+			min-width:	180px;
+			max-width:	180px;
+		}
+	</style>
 	
     <script type="text/javascript" src="jquery/jquery.min.js"></script>
     <script type="text/javascript" src="jquery/jquery.mobile.min.js"></script>
@@ -17,7 +21,7 @@
 <body data-role="page" ng-app="practice-angularjs">
     <div ng-controller='HelloController' 
 		 style="text-align:center; margin:20px auto; max-width:240px; border-radius:12px 12px; border:4px solid rgba(25%,25%,25%,0.5);">
-        <h1 data-role="header">{{greeting}} "{{usrmsg}}"</h1>
+        <h1 data-role="header" style="text-overflow:ellipsis; overflow:hidden; ">{{greeting}} "{{usrmsg}}"</h1>
         You: <div class="practice-user-message"></div>
         <p>Keep Typing</p>
     </div>
