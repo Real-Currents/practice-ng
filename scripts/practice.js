@@ -1,9 +1,16 @@
 "use strict";
+
 var practice = angular.module('practice-angularjs', []);
-var $inspectScope = {},
-	$inspectThis = {};
 
 practice.controller( 'HelloController', function($scope) {
+	$scope.greeting = "Hello, $1!";
+	
+	$scope.greet = function(n) {
+		return $scope.greeting.replace(/\$1/, n);
+	}
+} );
+
+practice.controller( 'typeBoxController', function($scope) {
 	$scope.greeting = "You said,";
 	$scope.usrmsg = "";
 	$scope.longmsg = false;

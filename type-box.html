@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Hello, AngularJS</title>
+    <title>Type Box</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 
     <link rel="stylesheet" href="jquery/ui/themes/smoothness/jquery-ui.css" />
@@ -14,14 +14,14 @@
 </head>
 
 <body data-role="page" ng-app="practice-angularjs">
-    <div ng-controller='HelloController' 
+    <div ng-controller='typeBoxController' 
 		 style="text-align:center; margin:20px auto; max-width:240px; border-radius:12px 12px; border:4px solid rgba(25%,25%,25%,0.5);">
         <h1 data-role="header" style="text-overflow:ellipsis; overflow:hidden; ">{{greeting}} "{{usrmsg}}"</h1>
         You: <div class="practice-user-message"></div>
         <p>Keep Typing</p>
     </div>
 
-    <script type="text/javascript" src="scripts/practice-angular.js"></script>
+    <script type="text/javascript" src="scripts/practice.js"></script>
 </body>
 
 </html>

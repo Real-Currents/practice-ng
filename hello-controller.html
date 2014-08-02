@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Select User</title>
+    <title>Hello, AngularJS</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 
     <link rel="stylesheet" href="jquery/ui/themes/smoothness/jquery-ui.css" />
@@ -13,6 +13,11 @@
     <script type="text/javascript" src="angularjs/angular.min.js"></script>
 </head>
 
-<body data-role="page" ng-app="practice-angularjs">
+<body data-role="page" 
+	  data-ng-app="practice-angularjs" 
+	  data-ng-init="name = 'World'">
+	
+	<h1 data-ng-controller="HelloController">{{greet(name)}}</h1>
 
+    <script type="text/javascript" src="scripts/practice.js"></script>
 </body></html>
