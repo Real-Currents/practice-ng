@@ -1,19 +1,38 @@
 "use strict";
+Debugger.on = true;
 
 var practice = angular.module('practice-angularjs', []);
+
 
 practice.controller( 'HelloController', function($scope) {
 	$scope.greeting = "Hello, $1!";
 	
 	$scope.greet = function(n) {
 		return $scope.greeting.replace(/\$1/, n);
-	}
+	};
+	
+	Debugger.log( this );
 } );
 
+
 practice.controller( 'typeBoxController', function($scope) {
+	$scope.MAX_LEN = 100;
+	$scope.WARN_LEN = 10;
 	$scope.greeting = "You said,";
 	$scope.usrmsg = "";
 	$scope.longmsg = false;
+	
+	$scope.remaining = function() {
+		var remains = $scope.MAX_LEN - $scope.usrmsg.length;
+		return( remains > 0 )?
+			remains:
+			0;
+	};
+	
+	$scope.warning = function() {
+		var remains = $scope.MAX_LEN - $scope.usrmsg.length;
+		return( remains < $scope.WARN_LEN );
+	};
 
 	$scope.transformField = function() {
 	try {
@@ -27,7 +46,7 @@ practice.controller( 'typeBoxController', function($scope) {
 	} finally {
 		return $scope.longmsg;
 	}
-	}
+	};
 } );
 
 practice.directive( 'practiceUserMessage', function() {
@@ -36,8 +55,8 @@ practice.directive( 'practiceUserMessage', function() {
 		replace: 	true,
 		//transclude:	true,
 		template: 	'<span>'+
-						'<input ng-model="usrmsg" ng-change="transformField()" ng-hide="longmsg"></input>'+
-						'<textarea ng-model="usrmsg" ng-change="transformField()" ng-show="longmsg"></textarea>'+
+						'<input data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-hide="longmsg"></input>'+
+						'<textarea data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-show="longmsg"></textarea>'+
 					'</span>',
 		link: function( scope, element, attrs ) {
 			var $lilBox = angular.element( element.children()[0] );
