@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Practice-AngularJS.aspx" />
-    <Content Include="practice.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

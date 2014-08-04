@@ -27,8 +27,8 @@
 			    )
 		    </p>
 	    </div>
-        <em><%= DateTime.Now.ToLongDateString() %></em>
     </form>
+    <asp:Literal ID="Lit1" runat="server"></asp:Literal>
 
     <script type="text/javascript" src="scripts/debugger.js"></script>
     <script type="text/javascript" src="scripts/practice.js"></script>
