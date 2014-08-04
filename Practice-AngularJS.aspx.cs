@@ -35,11 +35,18 @@ namespace practice_angularjs {
 				"	<em>" + DateTime.Now.ToLongTimeString() + " - " +
 				callBack(Context) + "</em><br />";
 			selectData(Lit1,
-				"SELECT TOP 100 * FROM Person.Person"
+				"SELECT TOP 10 FirstName, LastName, EmailAddress "+
+				"FROM Person.EmailAddress INNER JOIN Person.Person "+
+				"ON Person.EmailAddress.BusinessEntityID = Person.Person.BusinessEntityID "+
+				"ORDER BY LastName;"
 			);
         }
 
 		private void selectData( Literal lit, string selectCommandText ) {
+			SqlDataAdapter dataAdapter;
+			DataTable personData;
+			string personList;
+
 			try {
 				/* Change the connection string to match with your system. */
 				string selectConnection = @"Data Source=LIVE-PORTABLE\SQLEXPRESS;" +
@@ -48,28 +55,29 @@ namespace practice_angularjs {
 										//@"Connect Timeout=30;" +
 										//@"User Instance=True;";
 				
-				SqlDataAdapter dataAdapter = new SqlDataAdapter(selectCommandText,selectConnection);
-				DataTable personData = new DataTable();
+				dataAdapter = new SqlDataAdapter(selectCommandText,selectConnection);
+				personData = new DataTable();
 				dataAdapter.Fill(personData);
 
 				for( int r = 0; r < personData.Rows.Count; r++ ) {
-					lit.Text = lit.Text +"\n"+
-						"	<span id="+'"';
-					for ( int f = 4;
-						f < 7; //personData.Rows[r].ItemArray.Length; 
+					personList = "	<span id=" + '"';
+					for ( int f = 0, z = (personData.Rows[r].ItemArray.Length - 1);
+						f < z;
 						f++
 					) {
-						lit.Text = lit.Text + personData.Rows[r].ItemArray[f];
-						if ( f < 6 ) lit.Text = lit.Text + '-';
-						else lit.Text = lit.Text + '"' + ">";
+						personList = personList + personData.Rows[r].ItemArray[f];
+						if ( f < (z - 1) ) personList = personList + '-';
+						else personList = personList + r + '"' + ">";
 					}
-					for( int f = 4; 
-						f < 7; //personData.Rows[r].ItemArray.Length; 
+					for( int f = 0, z = personData.Rows[r].ItemArray.Length; 
+						f < z; 
 						f++ 
 					){
-						lit.Text = lit.Text +" "+ personData.Rows[r].ItemArray[f];
+						if( f == 0 ) personList = personList + personData.Rows[r].ItemArray[f];
+						else personList = personList +" "+ personData.Rows[r].ItemArray[f];
 					}
-					lit.Text = lit.Text +"</span><br />";
+					personList = personList + "</span><br />\n";
+					lit.Text = lit.Text + "\n" + personList;
 				}
 			} catch ( Exception e ) {
 				lit.Text = lit.Text + "\n" + e.Message;
