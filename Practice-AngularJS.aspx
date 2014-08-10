@@ -28,6 +28,9 @@
             </p>    
         </div>
     </form>
+    <p>This app queries the <a href="http://msftdbprodsamples.codeplex.com/releases/view/93587">AdventureWorks</a> database on SQL Server. 
+    The local server is accessed with Windows Authentication using the current user's credentials. 'scripts/GetUserList.sql' contains the required stored procedure.
+    Please configure the server and database accordingly or alter the selectData() method in Practice-AngularJS to reflect a different configuration.</p>
     <asp:Literal ID="Lit1" runat="server"></asp:Literal>
 
     <script type="text/javascript" src="scripts/debugger.js"></script>

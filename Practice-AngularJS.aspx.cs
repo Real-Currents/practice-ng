@@ -35,10 +35,13 @@ namespace practice_angularjs {
 				"	<em>" + DateTime.Now.ToLongTimeString() + " - " +
 				callBack(Context) + "</em><br />";
 			selectData(Lit1,
-				"SELECT TOP 10 FirstName, LastName, EmailAddress "+
-				"FROM Person.EmailAddress INNER JOIN Person.Person "+
-				"ON Person.EmailAddress.BusinessEntityID = Person.Person.BusinessEntityID "+
-				"ORDER BY LastName;"
+				/* The following query is a stored procedure saved in 'GetUserList.sql':
+				 * SELECT TOP (@NumberOfUsers) p.FirstName, p.LastName, e.EmailAddress
+				 * FROM Person.EmailAddress e INNER JOIN Person.Person p
+				 * ON e.BusinessEntityID = p.BusinessEntityID
+				 * ORDER BY p.LastName;
+				 */
+				"EXEC GetUserList @NumberOfUsers = 20;"
 			);
         }
 
