@@ -5,6 +5,7 @@ var practice = angular.module('practice-angularjs', []);
 
 
 practice.controller( 'HelloController', function($scope) {
+try {
 	$scope.greeting = "Hello, $1!";
 	
 	$scope.greet = function(n) {
@@ -12,10 +13,90 @@ practice.controller( 'HelloController', function($scope) {
 	};
 	
 	Debugger.log( this );
+} catch(e) {
+	Debugger.log( e.stack );
+}
 } );
 
 
+practice.service( 'SubscriptionService', [
+	'$q',
+	function( $q ) {
+	try {
+		this.getUsers = function() {
+			/* Skip ajax call because data is already on the page;
+			 * resolve promise immediately
+			 */
+			var userList = [],
+				defer = $q.defer();
+			$('.user-list').each( function( idx ) {
+				var data = this.innerHTML.match(/^(.+\s.+)\s(.+)$/);
+				var user = {
+					name: (!!data)? data[1]: "No name",
+					email: (!!data)? data[2]: "No@Email",
+					id: (idx + 1),
+					isSubscriber: false
+				};
+				userList.push(user);
+			} );
+			defer.resolve( userList );
+			
+			return defer.promise;
+		};
+		
+		this.updateParticipants = function( users ) {
+			var defer = $q.defer();
+			defer.resolve();
+			return defer.promise;
+		};
+	} catch(e) {
+		Debugger.log( e.stack );
+	}
+	}
+] );
+practice.controller( 'selectSubscribersController', [
+	'$scope',
+	'SubscriptionService',
+	function( $scope, SubscriptionService ) {
+	try {
+		$scope.model = {};
+		
+		SubscriptionService.getUsers().then( function( users) {
+			Debugger.log( users );
+			$scope.model.users = users;
+		} );
+		
+		$scope.watchSubscribers = function( newValue, oldValue ) {
+			if( (newValue === oldValue) || (!newValue) ) return;
+			$scope.model.selected.isSubscriber = true;
+		};
+		
+		$scope.$watch('model.selected', $scope.watchSubscribers);
+		
+		$scope.removeSubscriber = function( subscriber ) {
+			subscriber.isSubscriber = false;
+			$scope.model.selected = null; // reset choice
+		}
+		
+		$scope.saveChanges = function() {
+			SubscriptionService.updateUsers($scope.model.users).then(
+				function() {
+					/* Handle save success */
+				},
+				function() {
+					/* Handle save failure */
+				}
+			)
+		}
+	} catch(e) {
+		Debugger.log( e.stack );
+	}
+	}
+] );
+
+
 practice.controller( 'typeBoxController', function($scope) {
+try {
 	$scope.MAX_LEN = 100;
 	$scope.WARN_LEN = 10;
 	$scope.greeting = "You said,";
@@ -47,9 +128,12 @@ practice.controller( 'typeBoxController', function($scope) {
 		return $scope.longmsg;
 	}
 	};
+} catch(e) {
+	Debugger.log( e.stack );
+}
 } );
-
 practice.directive( 'practiceUserMessage', function() {
+try {
 	return {
 		restrict: 	'C',
 		replace: 	true,
@@ -78,4 +162,9 @@ practice.directive( 'practiceUserMessage', function() {
 			} );
 		}
 	};
+} catch(e) {
+	Debugger.log( e.stack );
+}
 } );
+
+1;

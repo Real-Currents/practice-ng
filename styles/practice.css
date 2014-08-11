@@ -2,7 +2,9 @@
 	display: none;
 }
 
-body.ng-scope div {
+body.ng-scope div.ng-scope {
+	width:			320px;
+	height:			240px;
 	text-align:		center; 
 	margin:			20px auto;
 	border-radius:	12px 12px; 
