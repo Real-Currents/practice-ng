@@ -27,6 +27,25 @@
                 )
             </p>    
         </div>
+        <p>Based on an MVC tutorial from the <a href="http://techblog.appnexus.com/2014/angularjs-blog-series-mvc-in-angularjs/" target="_blank">AppNexus Tech Blog</a></p>
+	    <div data-ng-controller="selectSubscribersController">
+		    <select data-ng-model="model.selected"
+				    data-ng-options="user.name for user in model.users">
+			    <option value="">Select A User</option>
+		    </select>
+		    <h3>Subscribers</h3>
+		    <ul>
+			    <li data-ng-repeat="subscriber in subscribers = ( model.users | filter:{isSubscriber:true} )"
+				    style="text-align:left; list-style:none; background-color:#CCF; border-bottom:2px solid #FFF;">
+				    <a href="mailto:{{subscriber.email}}">{{subscriber.name}}</a>
+				    <a href=""><span class="warning"
+					      data-ng-click="removeSubscriber(subscriber)"
+					      style="float:right; text-align:right">
+				    REMOVE
+				    </span></a>
+			    </li>
+		    </ul>
+	    </div>
     </form>
     <p>This app queries the <a href="http://msftdbprodsamples.codeplex.com/releases/view/93587">AdventureWorks</a> database on SQL Server. 
     The local server is accessed with Windows Authentication using the current user's credentials. 'scripts/GetUserList.sql' contains the required stored procedure.

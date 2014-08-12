@@ -63,7 +63,7 @@ namespace practice_angularjs {
 				dataAdapter.Fill(personData);
 
 				for( int r = 0; r < personData.Rows.Count; r++ ) {
-					personList = "	<span id=" + '"';
+					personList = "	<span  class=\"user-list\"id=" + '"';
 					for ( int f = 0, z = (personData.Rows[r].ItemArray.Length - 1);
 						f < z;
 						f++
