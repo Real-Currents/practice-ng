@@ -4,3 +4,6 @@
 [submodule "angularjs-book"]
 	path = angularjs-book
 	url = git@github.com:Revlin/angularjs-book.git
+[submodule "angular-app"]
+	path = angular-app
+	url = https://github.com/angular-app/angular-app.git
