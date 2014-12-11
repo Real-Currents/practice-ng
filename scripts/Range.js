@@ -42,7 +42,11 @@ function Range( from, to ) {
 			Range.prototype.foreach.i++;
 		}
 	};
-	/* 'this' refers to Range.prototype in this context */
+	/* 'this' refers to Range.prototype in this context;
+	 * toString() will not be included as a method of any 
+	 * constructor which subclasses Range because it is not
+	 * defined on the prototype object
+	 */
 	this.toString = function() {
 		/* Retrun a string representation of the range */
 		return "("+ this.from +"..."+ this.to +")";
