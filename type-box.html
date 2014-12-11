@@ -5,12 +5,12 @@
     <title>Type Box</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 
-    <link rel="stylesheet" href="jquery/ui/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="libs/jquery-ui/themes/smoothness/jquery-ui.min.css" />
 	<link rel="stylesheet" href="styles/practice.css" />
 	
-    <script type="text/javascript" src="jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery/jquery.mobile.min.js"></script>
-    <script type="text/javascript" src="angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/jquery-mobile/dist/jquery.mobile.min.js"></script>
+    <script type="text/javascript" src="libs/AngularJS/dist/angular.min.js"></script>
 </head>
 
 <body data-role="page" 
@@ -20,9 +20,8 @@
 		<h1 data-role="header" style="text-overflow:ellipsis; overflow:hidden; ">{{greeting}} "{{usrmsg}}"</h1>
 			You: <div class="practice-user-message"></div>
 		<p>
-			<span data-ng-show="remaining()">Keep Typing</span><span data-ng-show="(! remaining() )">Stop Typing</span> (
-			<span data-ng-class="{'warning': warning()}">remaining chars: {{remaining()}}</span>
-			)
+			<span data-ng-show="remaining()">Keep Typing</span><span data-ng-show="(! remaining() )">Stop Typing</span> 
+			(<span data-ng-class="{'warning': warning()}">remaining chars: {{remaining()}}</span>)
 		</p>
 	</div>
 

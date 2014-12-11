@@ -3,17 +3,17 @@ Practice AngularJS
 
 Learn AngularJS design and technique across multiple stacks:
 
-	1) Generic HTTP Server with CGI support (LAMP-like)
+	1) Mojolicious (or Node-like)
 
-	2) IIS with ASP.NET (WISA)
-
-	3) Mojolicious (or Node-like)
+	2) HTTP Server with CGI support (LAMP-like)
+	
+	3) IIS with ASP.NET (WISA)
 
 ...
 Querying multiple databases:
 
-	1) PostgreSQL (or MySQL)
+	1) MongoDB
 
-	2) SQL
+	2) PostgreSQL (or MySQL)
 
-	3) MongoDB
+	3) SQL

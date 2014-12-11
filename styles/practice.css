@@ -4,7 +4,7 @@
 
 body.ng-scope div.ng-scope {
 	width:			240px;;
-	height:			200px;
+	min-height:			200px;
 	text-align:		center; 
 	margin:			20px auto;
 	border-radius:	12px 12px; 

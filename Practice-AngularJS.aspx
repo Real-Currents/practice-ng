@@ -1,15 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Practice-AngularJS.aspx.cs" Inherits="practice_angularjs.Practice_Angularjs" %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Practice-AngularJS.aspx.cs" Inherits="practice_angularjs.Practice_Angularjs" %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Practice AngularJS</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 
-    <link rel="stylesheet" href="jquery/ui/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" href="styles/practice.css" />
-
-    <script type="text/javascript" src="jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery/jquery.mobile.min.js"></script>
-    <script type="text/javascript" src="angularjs/angular.min.js"></script>
+    <link rel="stylesheet" href="libs/jquery-ui/themes/smoothness/jquery-ui.min.css" />
+	<link rel="stylesheet" href="styles/practice.css" />
+	
+    <script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/jquery-mobile/dist/jquery.mobile.min.js"></script>
+    <script type="text/javascript" src="libs/AngularJS/dist/angular.min.js"></script>
 </head>
 <body data-role="page" 
       data-ng-app="practice-angularjs"
@@ -52,6 +52,6 @@
     Please configure the server and database accordingly or alter the selectData() method in Practice-AngularJS to reflect a different configuration.</p>
     <asp:Literal ID="Lit1" runat="server"></asp:Literal>
 
-    <script type="text/javascript" src="scripts/debugger.js"></script>
+    <script type="text/javascript" src="scripts/Debugger.js"></script>
     <script type="text/javascript" src="scripts/practice.js"></script>
 </body></html>
