@@ -19,8 +19,9 @@ module.exports = function(config) {
 		'libs/jquery-mobile/dist/jquery.mobile.min.js',
 		'libs/jquery-ui/jquery-ui.min.js',
 		'libs/AngularJS/dist/angular.min.js',
+		'libs/AngularJS/dist/angular-*.min.js',
 		'libs/bootstrap/dist/js/bootstrap.min.js',
-		'scripts/*.js',
+		'scripts/[A-Z][a-zA-Z]*.js',
 		'tests/*.js'
     ],
 
