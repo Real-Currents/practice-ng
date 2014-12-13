@@ -7,6 +7,25 @@ describe("Test props and methods of global function, Debugger: \n", function() {
     afterEach(function() {
         Debugger.on = false;
     });
+	
+	it( "Should report jasmine props", function() {
+
+		Debugger.log( 'jasmine-version: ' + jasmine.version );
+
+		jasmine.DEFAULT_TIMEOUT_INTERVAL = 0xFFFFFF;
+		Debugger.log( 
+				"Async timeout is "+ 
+				 jasmine.DEFAULT_TIMEOUT_INTERVAL/(1000*60) +" minutes" );
+
+		var consoleReporter = new (jasmineRequire.ConsoleReporter())({
+			timer: new jasmine.Timer, 
+			print: function () {
+				Debugger.log.apply(console,arguments);
+			}
+		});
+		jasmine.getEnv().addReporter(consoleReporter); // Add reporter to execution
+		
+	} );
  
     it("Should exist...\n", function() {
         expect( typeof Debugger ).toBe( 'function' );
@@ -20,3 +39,5 @@ describe("Test props and methods of global function, Debugger: \n", function() {
 	
 	return true;
 });
+
+1;

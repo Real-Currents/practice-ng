@@ -61,3 +61,5 @@ describe("Test GeometricMean: \n", function() {
 		);
 	} );
 } );
+
+1;

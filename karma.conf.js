@@ -15,11 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+		'libs/jasmine/2.1.3/console.js',
 		'libs/jquery/dist/jquery.min.js',
 		'libs/jquery-mobile/dist/jquery.mobile.min.js',
 		'libs/jquery-ui/jquery-ui.min.js',
 		'libs/AngularJS/dist/angular.min.js',
 		'libs/AngularJS/dist/angular-*.min.js',
+		'libs/AngularJS/dist/angular-mocks.js',
 		'libs/bootstrap/dist/js/bootstrap.min.js',
 		'scripts/[A-Z][a-zA-Z]*.js',
 		'tests/*.js'
@@ -64,7 +66,7 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-		//'Chrome', 
+		'Chrome', 
 		'Firefox'
 	],
 
