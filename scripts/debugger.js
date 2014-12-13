@@ -11,6 +11,13 @@ Debugger.log = function( m, r ) {
 	
 	var message = m;
 	var cache = [];
+	
+	//if( typeof message === 'array' ) message = m +"";
+	
+	if( typeof message === 'boolean' ) message = m +"";
+	
+	if( typeof message === 'number' ) message = m +"";
+	
 	if( typeof m === 'object' ) try { 
 		message =  JSON.stringify( m, function(key, value) {
     		if( (typeof value === 'object') && (value !== null) ) {
@@ -30,8 +37,6 @@ Debugger.log = function( m, r ) {
 		cache = null;
 		if( typeof message !== "string" ) message = m;
 	}
-	
-	if( typeof message === 'boolean' ) message = m +"";
 	
 	if( (r !== undefined) && (typeof message === 'string') ) 
 	  message = r.replace(/\$1/, message);

@@ -20,10 +20,10 @@ module.exports = function(config) {
 		'libs/jquery-mobile/dist/jquery.mobile.min.js',
 		'libs/jquery-ui/jquery-ui.min.js',
 		'libs/AngularJS/dist/angular.min.js',
-		'libs/AngularJS/dist/angular-*.min.js',
+		//'libs/AngularJS/dist/angular-*.min.js',
 		'libs/AngularJS/dist/angular-mocks.js',
 		'libs/bootstrap/dist/js/bootstrap.min.js',
-		'scripts/[A-Z][a-zA-Z]*.js',
+		'scripts/[A-Z][a-zA-Z|\-]*.js',
 		'tests/*.js'
     ],
 
@@ -61,6 +61,11 @@ module.exports = function(config) {
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
+
+	// polling interval in ms (ignored on OS that support inotify)
+	autoWatchInterval: 1,
+	  
+	usePolling: true,
 
 
     // start these browsers
