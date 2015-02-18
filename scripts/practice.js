@@ -1,3 +1,6 @@
+/* Practicing AngularJS modules, controllers and directives:
+ * https://github.com/Revlin/practice-ng
+ */
 "use strict";
 Debugger.on = true;
 
@@ -97,11 +100,11 @@ practice.controller( 'selectSubscribersController', [
 
 
 practice.controller( 'typeBoxController', function($scope) {
-try {
+try {	
 	$scope.MAX_LEN = 100;
 	$scope.WARN_LEN = 10;
 	$scope.greeting = "You said,";
-	//$scope.usrmsg = $scope.usrmsg || "";
+	$scope.usrmsg = $scope.usrmsg || "";
 	$scope.longmsg = false;
 	
 	$scope.remaining = function() {
@@ -130,7 +133,7 @@ try {
 			$scope.longmsg = false;				
 		}
 	} catch (e) {
-		console.log( "Failed to update usrmsg box: "+ e.stack );
+		Debugger.log( "Failed to update usrmsg box: "+ e.stack );
 	} finally {
 		return $scope.longmsg;
 	}
@@ -146,28 +149,34 @@ try {
 		restrict: 	'C',
 		replace: 	true,
 		//transclude:	true,
-		template: 	'<span>'+
-						'<input data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-hide="longmsg"></input>'+
-						'<textarea data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-show="longmsg"></textarea>'+
+		template: 	'<span data-reactid={{reactid}}>'+
+						'<input '+
+							'data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-hide="longmsg"></input>'+
+						'<textarea  '+
+							'data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-show="longmsg"></textarea>'+
 					'</span>',
 		link: function( scope, element, attrs ) {
 			var $lilBox = angular.element( element.children()[0] );
 			var $bigBox = angular.element( element.children()[1] );
-			scope.$watch(scope.transformField, function( n, o, scope ){
-				Debugger.log( o, "practiceUserMessage: $1" );
-				if( n === o ) {
-					return;
-				} else if(! n ) {
-					$lilBox[0].focus();
-					$lilBox[0].selectionStart = 
-						$lilBox[0].selectionEnd = 
-						$lilBox[0].value.length;
-				} else {
-					$bigBox[0].focus();
-					$bigBox[0].selectionStart = 
-						$bigBox[0].selectionEnd = 
-						$bigBox[0].value.length;
-				}
+			
+			/* Handel React id from original template element */
+			if( attrs['reactid'] ) scope.reactid = attrs['reactid'];
+			
+			scope.$watch(scope.transformField, function( v ){
+				setTimeout(function() {
+					if(! v ) {
+						$lilBox[0].focus();
+						$lilBox[0].selectionStart = 
+							$lilBox[0].selectionEnd = 
+							$lilBox[0].value.length;
+					} else {
+						$bigBox[0].focus();
+						$bigBox[0].selectionStart = 
+							$bigBox[0].selectionEnd = 
+							$bigBox[0].value.length;
+					}
+				}, 3);
+				Debugger.log( v, "practiceUserMessage: $1" );
 			} );
 		}
 	};
@@ -188,24 +197,25 @@ try {
 		link: function( scope, element, attrs ) {
 			var $lilBox = angular.element( element.children()[0] );
 			var $bigBox = angular.element( element.children()[1] );
-			scope.$watch(scope.transformField, function( n, o, scope ){
-				Debugger.log( o, "practiceSvgMessage: $1" );
-				/*
-				if( n === o ) {
-					return;
-				} else if(! n ) {
-					$lilBox[0].focus();
-					$lilBox[0].selectionStart = 
-						$lilBox[0].selectionEnd = 
-						$lilBox[0].value.length;
-				} else {
-					$bigBox[0].focus();
-					$bigBox[0].selectionStart = 
-						$bigBox[0].selectionEnd = 
-						$bigBox[0].value.length;
-				}
-				*/
-				return true;
+			
+			/* Handel React id from original template element */
+			if( attrs['reactid'] ) scope.reactid = attrs['reactid'];
+			
+			scope.$watch(scope.transformField, function( v ){
+				setTimeout(function() {
+					if(! v ) {
+						$lilBox[0].focus();
+						$lilBox[0].selectionStart = 
+							$lilBox[0].selectionEnd = 
+							$lilBox[0].value.length;
+					} else {
+						$bigBox[0].focus();
+						$bigBox[0].selectionStart = 
+							$bigBox[0].selectionEnd = 
+							$bigBox[0].value.length;
+					}
+				}, 3);
+				Debugger.log( v, "practiceUserMessage: $1" );
 			} );
 		}
 	};
