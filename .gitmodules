@@ -1,9 +1,9 @@
 [submodule "ngModal"]
 	path = ngModal
-	url = git@github.com:adamalbrecht/ngModal.git
+	url = https://github.com/adamalbrecht/ngModal.git
 [submodule "angularjs-book"]
 	path = angularjs-book
-	url = git@github.com:Revlin/angularjs-book.git
+	url = https://github.com/Revlin/angularjs-book.git
 [submodule "angular-app"]
 	path = angular-app
 	url = https://github.com/angular-app/angular-app.git
