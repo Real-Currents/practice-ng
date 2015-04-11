@@ -1,0 +1,22 @@
+{
+  "name": "practice-ng",
+  "version": "0.0.0",
+  "authors": [
+    "John <john@real-currents.com>"
+  ],
+  "license": "PPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-ui": "~1.11.2",
+    "requirejs": "~2.1.17",
+    "requirejs-domready": "~2.0.1",
+    "lodash": "~3.6.0"
+  }
+}

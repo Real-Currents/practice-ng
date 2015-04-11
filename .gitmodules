@@ -7,3 +7,6 @@
 [submodule "angular-app"]
 	path = angular-app
 	url = https://github.com/angular-app/angular-app.git
+[submodule "angularjs-requirejs-1"]
+	path = angularjs-requirejs-1
+	url = https://github.com/StarterSquad/startersquad.com.git
