@@ -9,7 +9,7 @@ push @{app->static->paths}, ($ENV{PWD});
 
 get( '/' => sub {
   	my $c = shift;
-	$c->reply->static('hello-controller.html');
+	$c->reply->static('index.html');
 } );
 
 app->start;
