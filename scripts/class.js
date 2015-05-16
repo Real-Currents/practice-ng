@@ -1,9 +1,3 @@
-/**
- * Direct Marketing Application (DMA) by Maponics
- * Original UI and business logic created by J Campbell
- * UI elements converted to React components by J Hall
- */
-
 /* This simple class constructor can be used as a template */
 
 function ClassName( config ) {

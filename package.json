@@ -1,0 +1,30 @@
+{
+  "name": "practice-ng",
+  "version": "0.0.1",
+  "description": "Learning AngularJS by practice",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Revlin/practice-ng.git"
+  },
+  "keywords": [
+    "angular",
+    "javascript",
+    "mvc",
+    "application",
+    "web",
+    "education"
+  ],
+  "author": "Revlin John",
+  "license": "PPL",
+  "bugs": {
+    "url": "https://github.com/Revlin/practice-ng/issues"
+  },
+  "homepage": "https://github.com/Revlin/practice-ng"
+}
