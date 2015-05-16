@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Learning AngularJS by practice",
   "main": "main.js",
+  "dependencies": {
+	"karma": "*",
+	"webpack": "*"
+  },
   "directories": {
     "test": "tests"
   },
