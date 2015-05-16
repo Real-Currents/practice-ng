@@ -1,14 +1,14 @@
 /* Practicing AngularJS modules, controllers and directives:
  * https://github.com/Revlin/practice-ng
- * 
- * Build with:
- * $ webpack --watch
  */
 'use strict';
-require("../libs/jquery/dist/jquery.min");
-require("../libs/AngularJS/dist/angular.min");
+try {
+	require("../libs/jquery/dist/jquery.min");
+	require("../libs/AngularJS/dist/angular.min");
 
 var Debugger = require("./Debugger");
+} catch(e) {} finally { 1; }
+
 Debugger.on = true;
 
 var practice = angular.module('practice-common', []);
@@ -231,4 +231,6 @@ try {
 }
 } );
 
+try {
 module.exports = practice;
+} catch(e) {} finally { 1; }

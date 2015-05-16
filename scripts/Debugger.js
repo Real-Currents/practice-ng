@@ -73,4 +73,6 @@ Debugger.profile = {
 	}
 };
 
+try {
 module.exports = Debugger;
+} catch(e) {} finally { 1; }

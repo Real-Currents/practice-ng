@@ -1,6 +1,8 @@
+'use strict';
+
 /* From http://asmjs.org/spec/latest/#introduction */
 function GeometricMean( stdlib, foreign, buffer ) {
-	"use asm";
+	'use asm';
 	
 	var exp = stdlib.Math.exp;
 	var log = stdlib.Math.log;
@@ -33,4 +35,7 @@ function GeometricMean( stdlib, foreign, buffer ) {
 	};
 }
 
-1;
+try {
+module.exports = GeometricMean;
+} catch(e) {} finally { 1; }
+

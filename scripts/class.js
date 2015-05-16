@@ -22,4 +22,6 @@ function ClassName( config ) {
 	return this.init(config);
 }
 
+try {
 module.exports = ClassName;
+} catch(e) {} finally { 1; }
