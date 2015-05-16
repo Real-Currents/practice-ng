@@ -1,0 +1,9 @@
+
+	<div style="max-width:240px;">
+		<h1 data-role="header" style="text-overflow:ellipsis; overflow:hidden; ">{{greeting}} "{{usrmsg}}"</h1>
+			You: <div class="practice-user-message"></div>
+		<p>
+			<span data-ng-show="remaining()">Keep Typing</span><span data-ng-show="(! remaining() )">Stop Typing</span> 
+			(<span data-ng-class="{'warning': warning()}">remaining chars: {{remaining()}}</span>)
+		</p>
+	</div>

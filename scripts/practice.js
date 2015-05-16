@@ -1,7 +1,7 @@
 /* Practicing AngularJS modules, controllers and directives:
  * https://github.com/Revlin/practice-ng
  */
-"use strict";
+'use strict';
 Debugger.on = true;
 
 var practice = angular.module('practice-angularjs', []);

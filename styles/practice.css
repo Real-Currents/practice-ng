@@ -1,8 +1,8 @@
-* *.aspNetHidden, * *.ui-loader-default {
-	display: none;
+* {
+	border:			none;
 }
 
-body.ng-scope div.ng-scope {
+body.ng-scope > div.ng-scope {
 	width:			240px;;
 	min-height:			200px;
 	text-align:		center; 
@@ -10,6 +10,10 @@ body.ng-scope div.ng-scope {
 	border-radius:	12px 12px; 
 	border:			4px solid rgba(25%,25%,25%,0.5);
 	overflow:		auto;
+}
+
+* *.aspNetHidden, * *.ui-loader-default {
+	display: none;
 }
 
 * span.practice-user-message * {

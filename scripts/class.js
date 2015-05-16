@@ -1,5 +1,6 @@
-/* This simple class constructor can be used as a template */
+'use strict';
 
+/* This simple class constructor can be used as a template */
 function ClassName( config ) {
 	Debugger.on = true;
 	
@@ -21,4 +22,4 @@ function ClassName( config ) {
 	return this.init(config);
 }
 
-1;
+module.exports = ClassName;
