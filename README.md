@@ -12,7 +12,7 @@ Learn AngularJS design and technique across multiple stacks:
 
 Querying multiple databases:
 
-	1) MongoDB
+	1) PostgreSQL (SQL-based)
 
-	2) PostgreSQL (SQL-based)
+	2) MongoDB
 ...
