@@ -1,5 +1,8 @@
 // Karma configuration
 // Generated on Sun Oct 12 2014 10:06:05 GMT-0700 (Pacific Daylight Time)
+// 
+// Start testing with:
+// $ node_modules/karma/bin/karma start
 
 module.exports = function(config) {
   config.set({
@@ -20,7 +23,7 @@ module.exports = function(config) {
 		'libs/jquery-mobile/dist/jquery.mobile.min.js',
 		'libs/jquery-ui/jquery-ui.min.js',
 		'libs/AngularJS/dist/angular.min.js',
-		//'libs/AngularJS/dist/angular-*.min.js',
+		'libs/AngularJS/dist/angular-*.min.js',
 		'libs/AngularJS/dist/angular-mocks.js',
 		'libs/bootstrap/dist/js/bootstrap.min.js',
 		'scripts/[A-Z][a-zA-Z|\-]*.js',
