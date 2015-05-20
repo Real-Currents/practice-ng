@@ -5,12 +5,12 @@
   "main": "main.js",
   "dependencies": {
     "karma": "*",
+    "karma-cli": "0.0.4",
     "jasmine-core": "~2.3.4",
     "karma-jasmine": "~0.3.5",
     "karma-chrome-launcher": "~0.1.12",
     "karma-firefox-launcher": "~0.1.6",
-    "webpack": "*",
-    "karma-cli": "0.0.4"
+    "webpack": "*"
   },
   "directories": {
     "test": "tests"
