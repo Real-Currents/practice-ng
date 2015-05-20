@@ -25,7 +25,8 @@ module.exports = function(config) {
 		'libs/AngularJS/dist/angular.min.js',
 		'libs/AngularJS/dist/angular-*.min.js',
 		'libs/AngularJS/dist/angular-mocks.js',
-		'libs/bootstrap/dist/js/bootstrap.min.js',
+		//'libs/bootstrap/dist/js/bootstrap.min.js',
+		'scripts/angular-async.js',
 		'scripts/[A-Z][a-zA-Z|\-]*.js',
 		'tests/*.js'
     ],
