@@ -10,7 +10,12 @@
     "karma-jasmine": "~0.3.5",
     "karma-chrome-launcher": "~0.1.12",
     "karma-firefox-launcher": "~0.1.6",
-    "webpack": "*"
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "matchdep": "^0.3.0",
+    "webpack": "*",
+    "webpack-dev-server": "^1.7.0",
+    "grunt-webpack": "^1.0.8"
   },
   "directories": {
     "test": "tests"

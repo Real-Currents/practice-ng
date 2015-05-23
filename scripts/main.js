@@ -25,6 +25,14 @@ main.config([
 			.when('/', {
 				templateUrl: 'partials/type-box.html',
 				controller: 'typeBoxController'
+			})
+			.when('/type', {
+				templateUrl: 'partials/type-box.html',
+				controller: 'typeBoxController'
+			})
+			.when('/select', {
+				templateUrl: 'partials/select-users.html',
+				controller: 'selectSubscribersController'
 			});
 	}
 ]);

@@ -40,7 +40,7 @@ practice.service( 'SubscriptionService', [
 			 */
 			var userList = [],
 				defer = $q.defer();
-			$('.user-list').each( function( idx ) {
+			angular.element('.user-list').each( function( idx ) {
 				var data = this.innerHTML.match(/^(.+\s.+)\s(.+)$/);
 				var user = {
 					name: (!!data)? data[1]: "No name",
