@@ -29,6 +29,27 @@ try {
 }
 } );
 
+/* Adapted from "Learning AngularJS"
+ * by Ken Williamson (O'Reilly)
+ */
+practice.controller( 'userController', [
+	'$scope',
+	function( $scope ) {
+		var user;
+		$scope.user = user = 
+		{
+			"id": 0,
+			"name": "User"
+		};
+		
+		$scope.changeUser = 
+		function() {
+			user.id = $scope.uID;
+			user.name = $scope.uName;
+		};
+	}
+] );
+
 
 practice.service( 'SubscriptionService', [
 	'$q',

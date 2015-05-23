@@ -1,0 +1,20 @@
+<!-- Adapted from "Learning AngularJS"
+  -- by Ken Williamson (O'Reilly)
+  -->
+	<ul style="text-align:left; list-style:none; background-color:#CCF; border-bottom:2px solid #FFF;">
+		<li><b>Name:</b> {{user.name}}</li>
+		<li><b>ID:</b> {{user.id}}</li>
+
+		<form>
+			<li>
+				<label for="uname">Change Name:</label>
+				<input id="uname" type="text" data-ng-model="uName" required />
+			</li>
+			<li>
+				<label for="uid">Change ID:</label>
+				<input id="uid" type="text" data-ng-model="uID" required />
+			</li>
+			<li><button data-ng-click="changeUser()">Change User</button></li>
+
+		</form>
+	</ul>

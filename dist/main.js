@@ -70,16 +70,16 @@
 			$locationProvider.html5Mode(false).hashPrefix('!');
 			$routeProvider
 				.when('/', {
-					templateUrl: 'partials/type-box.html',
-					controller: 'typeBoxController'
-				})
-				.when('/type', {
-					templateUrl: 'partials/type-box.html',
-					controller: 'typeBoxController'
+					templateUrl: 'partials/user.html',
+					controller: 'userController'
 				})
 				.when('/select', {
 					templateUrl: 'partials/select-users.html',
 					controller: 'selectSubscribersController'
+				})
+				.when('/type', {
+					templateUrl: 'partials/type-box.html',
+					controller: 'typeBoxController'
 				});
 		}
 	]);
@@ -445,6 +445,27 @@
 		Debugger.log( e.stack );
 	}
 	} );
+	
+	/* Adapted from "Learning AngularJS"
+	 * by Ken Williamson (O'Reilly)
+	 */
+	practice.controller( 'userController', [
+		'$scope',
+		function( $scope ) {
+			var user;
+			$scope.user = user = 
+			{
+				"id": 0,
+				"name": "User"
+			};
+			
+			$scope.changeUser = 
+			function() {
+				user.id = $scope.uID;
+				user.name = $scope.uName;
+			};
+		}
+	] );
 	
 	
 	practice.service( 'SubscriptionService', [

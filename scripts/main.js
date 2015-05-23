@@ -24,16 +24,16 @@ main.config([
 		$locationProvider.html5Mode(false).hashPrefix('!');
 		$routeProvider
 			.when('/', {
-				templateUrl: 'partials/type-box.html',
-				controller: 'typeBoxController'
-			})
-			.when('/type', {
-				templateUrl: 'partials/type-box.html',
-				controller: 'typeBoxController'
+				templateUrl: 'partials/user.html',
+				controller: 'userController'
 			})
 			.when('/select', {
 				templateUrl: 'partials/select-users.html',
 				controller: 'selectSubscribersController'
+			})
+			.when('/type', {
+				templateUrl: 'partials/type-box.html',
+				controller: 'typeBoxController'
 			});
 	}
 ]);
