@@ -22,10 +22,19 @@ main.config([
 	'$routeProvider',
 	function( $locationProvider, $routeProvider ) {
 		$locationProvider.html5Mode(false).hashPrefix('!');
+		
 		$routeProvider
 			.when('/', {
 				templateUrl: 'partials/user.html',
 				controller: 'userController'
+			})
+			.when('/user/:name/:email', {
+				templateUrl: 'partials/user.html',
+				controller: 'userController'
+			})
+			.when('/add', {
+				templateUrl: 'partials/add-user.html',
+				controller: 'addUserController'
 			})
 			.when('/select', {
 				templateUrl: 'partials/select-users.html',

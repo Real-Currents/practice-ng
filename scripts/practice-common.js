@@ -34,18 +34,31 @@ try {
  */
 practice.controller( 'userController', [
 	'$scope',
-	function( $scope ) {
+	'$routeParams',
+	function( $scope, $routeParams ) {
 		var user;
 		$scope.user = user = 
 		{
 			"id": 0,
-			"name": "User"
+			"name": $routeParams.name || "User",
+			"email": $routeParams.email || "user@email.com"
 		};
 		
 		$scope.changeUser = 
 		function() {
-			user.id = $scope.uID;
-			user.name = $scope.uName;
+			//user.id = $scope.uID;
+			user.name = ($scope.uName)? $scope.uName : user.name;
+			user.email = ($scope.uMail)? $scope.uMail : user.email;
+		};
+	}
+] );
+practice.controller( 'addUserController', [
+	'$scope',
+	'$location',
+	function( $scope, $location ) {
+		$scope.submit = 
+		function() {
+			$location.path('/user/'+ $scope.name +'/'+ $scope.email);
 		};
 	}
 ] );

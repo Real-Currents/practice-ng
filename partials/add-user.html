@@ -1,0 +1,15 @@
+	<ul style="text-align:left; list-style:none; background-color:#CCF; border-bottom:2px solid #FFF;">
+		<form data-ng-controller="addUserController"
+			  data-ng-submit="submit()">
+			<li>
+				<label for="uname">Name:</label>
+				<input id="uname" type="text" data-ng-model="name" required />
+			</li>
+			<li>
+				<label for="umail">Email:</label>
+				<input id="umail" type="text" data-ng-model="email" required />
+			</li>
+			<li><button id="f1" type="submit">Add User</button></li>
+
+		</form>
+	</ul>
