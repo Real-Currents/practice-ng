@@ -3,9 +3,9 @@
  */
 'use strict';
 try {
-	require("../libs/jquery/dist/jquery.min");
+var $ = require("../libs/jquery/dist/jquery.min");
 	require("../libs/AngularJS/dist/angular.min");
-
+	
 var Debugger = require("./Debugger");
 } catch(e) {} finally { 1; }
 
@@ -40,7 +40,7 @@ practice.service( 'SubscriptionService', [
 			 */
 			var userList = [],
 				defer = $q.defer();
-			angular.element('.user-list').each( function( idx ) {
+			$('.user-list').each( function( idx ) {
 				var data = this.innerHTML.match(/^(.+\s.+)\s(.+)$/);
 				var user = {
 					name: (!!data)? data[1]: "No name",

@@ -9,11 +9,11 @@
 			<li data-ng-repeat="subscriber in subscribers = ( model.users | filter:{isSubscriber:true} )"
 				style="text-align:left; list-style:none; background-color:#CCF; border-bottom:2px solid #FFF;">
 				<a href="mailto:{{subscriber.email}}">{{subscriber.name}}</a>
-				<a href=""><span class="warning"
-					  data-ng-click="removeSubscriber(subscriber)"
-					  style="float:right; text-align:right">
-				REMOVE
-				</span></a>
+				<button data-ng-click="removeSubscriber(subscriber)"
+						style="float:right;">
+					<span class="warning" style="text-align:right">
+						X</span>
+				</button>
 			</li>
 		</ul>
 	</div>
