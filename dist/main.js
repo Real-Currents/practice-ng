@@ -54,11 +54,11 @@
 	 */
 	'use strict';
 	try {
-		__webpack_require__(1);
-		__webpack_require__(2);
+		__webpack_require__(3);
+		__webpack_require__(4);
 	
-	var Debugger = __webpack_require__(3);
-	var practice = __webpack_require__(4);
+	var Debugger = __webpack_require__(1);
+	var practice = __webpack_require__(2);
 	} catch(e) {} finally { 1; }
 	
 	var main = angular.module('practice-angularjs', [ 'practice-common', 'ngRoute' ]);
@@ -96,6 +96,370 @@
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/* Debugger Function */
+	var Debugger = function Debugger() {};
+	
+	Debugger.on = false;
+	Debugger.iPadOn = false;
+	
+	Debugger.log = function( m, r ) {
+		if( (Debugger.on !== true) && (Debugger.iPadOn) !== true ) return false;
+		
+		var message = m;
+		var cache = [];
+		
+		//if( typeof message === 'array' ) message = m +"";
+		
+		if( typeof message === 'boolean' ) message = m +"";
+		
+		if( typeof message === 'number' ) message = m +"";
+		
+		if( typeof m === 'object' ) try { 
+			message =  JSON.stringify( m, function(key, value) {
+	    		if( (typeof value === 'object') && (value !== null) ) {
+	    			if (cache.indexOf(value) !== -1) {
+						/* Circular reference found, discard key */
+						return;
+	    			}
+	    			/* Store value in our collection */
+	    			cache.push(value);
+	    		}
+	    		return value;
+			} );
+		} catch (e) {
+			message = m;
+			//Debugger.log(  "Could not stringify object or value:\n"+ e.message +"\n" );
+		} finally {
+			cache = null;
+			if( typeof message !== "string" ) message = m;
+		}
+		
+		if( (r !== undefined) && (typeof message === 'string') ) 
+		  message = r.replace(/\$1/, message);
+		
+		try {
+			console.log( message );
+			console.log( "\n" );
+		} catch (e) {
+			//alert( message );
+		} finally {
+			return m;
+		}
+		
+		return m;
+	};
+	
+	Debugger.typeOf = function (v) {
+		return typeof v;
+	};
+	
+	Debugger.profile = {
+		time1: 0,
+		time2: 0,
+		start: function() {
+			this.time1 = (new Date).getTime();	
+			return this.time1;
+		},
+		stop: function() {
+			return ( this.check() - this.time1 );
+		},
+		check: function() {
+			this.time2 = (new Date).getTime();	
+			return this.time2;
+		}
+	};
+	
+	try {
+	module.exports = Debugger;
+	} catch(e) {} finally { 1; }
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* Practicing AngularJS modules, controllers and directives:
+	 * https://github.com/Revlin/practice-ng
+	 */
+	'use strict';
+	try {
+	var $ = __webpack_require__(5);
+		__webpack_require__(3);
+		
+	var Debugger = __webpack_require__(1);
+	} catch(e) {} finally { 1; }
+	
+	Debugger.on = true;
+	
+	var practice = angular.module('practice-common', []);
+	
+	
+	practice.controller( 'HelloController', function($scope) {
+	try {
+		"debugger";
+		$scope.greeting = "Hello, $1!";
+		
+		$scope.greet = function(n) {
+			return $scope.greeting.replace(/\$1/, n);
+		};
+		
+		Debugger.log( this );
+	} catch(e) {
+		Debugger.log( e.stack );
+	}
+	} );
+	
+	/* Adapted from "Learning AngularJS"
+	 * by Ken Williamson (O'Reilly)
+	 */
+	practice.controller( 'userController', [
+		'$scope',
+		'$routeParams',
+		function( $scope, $routeParams ) {
+			var user;
+			$scope.user = user = 
+			{
+				"id": 0,
+				"name": $routeParams.name || "User",
+				"email": $routeParams.email || "user@email.com"
+			};
+			
+			$scope.changeUser = 
+			function() {
+				//user.id = $scope.uID;
+				user.name = ($scope.uName)? $scope.uName : user.name;
+				user.email = ($scope.uMail)? $scope.uMail : user.email;
+			};
+		}
+	] );
+	practice.controller( 'addUserController', [
+		'$scope',
+		'$location',
+		function( $scope, $location ) {
+			$scope.submit = 
+			function() {
+				$location.path('/user/'+ $scope.name +'/'+ $scope.email);
+			};
+		}
+	] );
+	
+	
+	/* Adapted from "AngularJS blog series – MVC in AngularJS"
+	 * by Denis O’Sullivan (appnexus tech blog)
+	 * http://techblog.appnexus.com/2014/angularjs-blog-series-mvc-in-angularjs/
+	 */
+	practice.service( 'SubscriptionService', [
+		'$q',
+		function( $q ) {
+		try {
+			this.getUsers = function() {
+				/* Skip ajax call because data is already on the page;
+				 * resolve promise immediately
+				 */
+				var userList = [],
+					defer = $q.defer();
+				$('.user-list').each( function( idx ) {
+					var data = this.innerHTML.match(/^(.+\s.+)\s(.+)$/);
+					var user = {
+						name: (!!data)? data[1]: "No name",
+						email: (!!data)? data[2]: "No@Email",
+						id: (idx + 1),
+						isSubscriber: false
+					};
+					userList.push(user);
+				} );
+				defer.resolve( userList );
+				
+				return defer.promise;
+			};
+			
+			this.updateParticipants = function( users ) {
+				var defer = $q.defer();
+				defer.resolve();
+				return defer.promise;
+			};
+		} catch(e) {
+			Debugger.log( e.stack );
+		}
+		}
+	] );
+	practice.controller( 'selectSubscribersController', [
+		'$scope',
+		'SubscriptionService',
+		function( $scope, SubscriptionService ) {
+		try {
+			$scope.model = {};
+			
+			SubscriptionService.getUsers().then( function( users) {
+				Debugger.log( users );
+				$scope.model.users = users;
+			} );
+			
+			$scope.watchSubscribers = function( newValue, oldValue ) {
+				if( (newValue === oldValue) || (!newValue) ) return;
+				$scope.model.selected.isSubscriber = true;
+			};
+			
+			$scope.$watch('model.selected', $scope.watchSubscribers);
+			
+			$scope.removeSubscriber = function( subscriber ) {
+				subscriber.isSubscriber = false;
+				$scope.model.selected = null; // reset choice
+			}
+			
+			$scope.saveChanges = function() {
+				SubscriptionService.updateUsers($scope.model.users).then(
+					function() {
+						/* Handle save success */
+					},
+					function() {
+						/* Handle save failure */
+					}
+				)
+			}
+		} catch(e) {
+			Debugger.log( e.stack );
+		}
+		}
+	] );
+	
+	
+	practice.controller( 'typeBoxController', function($scope) {
+	try {	
+		$scope.MAX_LEN = 100;
+		$scope.WARN_LEN = 10;
+		$scope.greeting = "You said,";
+		$scope.usrmsg = $scope.usrmsg || "";
+		$scope.longmsg = false;
+		
+		$scope.remaining = function() {
+			if(! $scope.usrmsg ) return $scope.MAX_LEN;
+			
+			var remains = $scope.MAX_LEN - $scope.usrmsg.length;
+			return( remains > 0 )?
+				remains:
+				0;
+		};
+		
+		$scope.warning = function() {
+			if(! $scope.usrmsg ) return false;
+			
+			var remains = $scope.MAX_LEN - $scope.usrmsg.length;
+			return( remains < $scope.WARN_LEN );
+		};
+	
+		$scope.transformField = function() {
+			if(! $scope.usrmsg ) return $scope.longmsg;
+			
+		try {
+			if ($scope.usrmsg.length > 20) {
+				$scope.longmsg = true;
+			} else {
+				$scope.longmsg = false;				
+			}
+		} catch (e) {
+			Debugger.log( "Failed to update usrmsg box: "+ e.stack );
+		} finally {
+			return $scope.longmsg;
+		}
+			
+		};
+	} catch(e) {
+		Debugger.log( e.stack );
+	}
+	} );
+	practice.directive( 'practiceUserMessage', function() {
+	try {
+		return {
+			restrict: 	'C',
+			replace: 	true,
+			//transclude:	true,
+			template: 	'<span data-reactid={{reactid}}>'+
+							'<input '+
+								'data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-hide="longmsg"></input>'+
+							'<textarea  '+
+								'data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-show="longmsg"></textarea>'+
+						'</span>',
+			link: function( scope, element, attrs ) {
+				var $lilBox = angular.element( element.children()[0] );
+				var $bigBox = angular.element( element.children()[1] );
+				
+				/* Handel React id from original template element */
+				if( attrs['reactid'] ) scope.reactid = attrs['reactid'];
+				
+				scope.$watch(scope.transformField, function( v ){
+					setTimeout(function() {
+						if(! v ) {
+							$lilBox[0].focus();
+							$lilBox[0].selectionStart = 
+								$lilBox[0].selectionEnd = 
+								$lilBox[0].value.length;
+						} else {
+							$bigBox[0].focus();
+							$bigBox[0].selectionStart = 
+								$bigBox[0].selectionEnd = 
+								$bigBox[0].value.length;
+						}
+					}, 3);
+					Debugger.log( v, "practiceUserMessage: $1" );
+				} );
+			}
+		};
+	} catch(e) {
+		Debugger.log( e.stack );
+	}
+	} );
+	practice.directive( 'practiceSvgMessage', function() {
+	try {
+		return {
+			restrict: 	'C',
+			//transclude:	true,
+			// the following two configuration options are 
+			// required for SVG custom elements.
+			templateNamespace: 'svg',
+			replace: true, 
+			template: 	'<tspan data-ng-model="usrmsg" data-ng-hide="longmsg"  data-ng-change="transformField()">{{usrmsg}}</tspan>',
+			link: function( scope, element, attrs ) {
+				var $lilBox = angular.element( element.children()[0] );
+				var $bigBox = angular.element( element.children()[1] );
+				
+				/* Handel React id from original template element */
+				if( attrs['reactid'] ) scope.reactid = attrs['reactid'];
+				
+				scope.$watch(scope.transformField, function( v ){
+					setTimeout(function() {
+						if(! v ) {
+							$lilBox[0].focus();
+							$lilBox[0].selectionStart = 
+								$lilBox[0].selectionEnd = 
+								$lilBox[0].value.length;
+						} else {
+							$bigBox[0].focus();
+							$bigBox[0].selectionStart = 
+								$bigBox[0].selectionEnd = 
+								$bigBox[0].value.length;
+						}
+					}, 3);
+					Debugger.log( v, "practiceUserMessage: $1" );
+				} );
+			}
+		};
+	} catch(e) {
+		Debugger.log( e.stack );
+	}
+	} );
+	
+	try {
+	module.exports = practice;
+	} catch(e) {} finally { 1; }
+
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -317,7 +681,7 @@
 
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -334,366 +698,6 @@
 	else q=null;q=a=q}q&&(b=s(f,{params:e.extend({},c.search(),a),pathParams:a}),b.$$route=f)});return b||h[null]&&s(h[null],{params:{},pathParams:{}})}function t(a,c){var b=[];e.forEach((a||"").split(":"),function(a,d){if(0===d)b.push(a);else{var e=a.match(/(\w+)(.*)/),f=e[1];b.push(c[f]);b.push(e[2]||"");delete c[f]}});return b.join("")}var u=!1,r={routes:h,reload:function(){u=!0;a.$evalAsync(l)}};a.$on("$locationChangeSuccess",l);return r}]});n.provider("$routeParams",function(){this.$get=function(){return{}}});
 	n.directive("ngView",x);n.directive("ngView",z);x.$inject=["$route","$anchorScroll","$animate"];z.$inject=["$compile","$controller","$route"]})(window,window.angular);
 	//# sourceMappingURL=angular-route.min.js.map
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	/* Debugger Function */
-	var Debugger = function Debugger() {};
-	
-	Debugger.on = false;
-	Debugger.iPadOn = false;
-	
-	Debugger.log = function( m, r ) {
-		if( (Debugger.on !== true) && (Debugger.iPadOn) !== true ) return false;
-		
-		var message = m;
-		var cache = [];
-		
-		//if( typeof message === 'array' ) message = m +"";
-		
-		if( typeof message === 'boolean' ) message = m +"";
-		
-		if( typeof message === 'number' ) message = m +"";
-		
-		if( typeof m === 'object' ) try { 
-			message =  JSON.stringify( m, function(key, value) {
-	    		if( (typeof value === 'object') && (value !== null) ) {
-	    			if (cache.indexOf(value) !== -1) {
-						/* Circular reference found, discard key */
-						return;
-	    			}
-	    			/* Store value in our collection */
-	    			cache.push(value);
-	    		}
-	    		return value;
-			} );
-		} catch (e) {
-			message = m;
-			//Debugger.log(  "Could not stringify object or value:\n"+ e.message +"\n" );
-		} finally {
-			cache = null;
-			if( typeof message !== "string" ) message = m;
-		}
-		
-		if( (r !== undefined) && (typeof message === 'string') ) 
-		  message = r.replace(/\$1/, message);
-		
-		try {
-			console.log( message );
-			console.log( "\n" );
-		} catch (e) {
-			//alert( message );
-		} finally {
-			return m;
-		}
-		
-		return m;
-	};
-	
-	Debugger.typeOf = function (v) {
-		return typeof v;
-	};
-	
-	Debugger.profile = {
-		time1: 0,
-		time2: 0,
-		start: function() {
-			this.time1 = (new Date).getTime();	
-			return this.time1;
-		},
-		stop: function() {
-			return ( this.check() - this.time1 );
-		},
-		check: function() {
-			this.time2 = (new Date).getTime();	
-			return this.time2;
-		}
-	};
-	
-	try {
-	module.exports = Debugger;
-	} catch(e) {} finally { 1; }
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* Practicing AngularJS modules, controllers and directives:
-	 * https://github.com/Revlin/practice-ng
-	 */
-	'use strict';
-	try {
-	var $ = __webpack_require__(5);
-		__webpack_require__(1);
-		
-	var Debugger = __webpack_require__(3);
-	} catch(e) {} finally { 1; }
-	
-	Debugger.on = true;
-	
-	var practice = angular.module('practice-common', []);
-	
-	
-	practice.controller( 'HelloController', function($scope) {
-	try {
-		"debugger";
-		$scope.greeting = "Hello, $1!";
-		
-		$scope.greet = function(n) {
-			return $scope.greeting.replace(/\$1/, n);
-		};
-		
-		Debugger.log( this );
-	} catch(e) {
-		Debugger.log( e.stack );
-	}
-	} );
-	
-	/* Adapted from "Learning AngularJS"
-	 * by Ken Williamson (O'Reilly)
-	 */
-	practice.controller( 'userController', [
-		'$scope',
-		'$routeParams',
-		function( $scope, $routeParams ) {
-			var user;
-			$scope.user = user = 
-			{
-				"id": 0,
-				"name": $routeParams.name || "User",
-				"email": $routeParams.email || "user@email.com"
-			};
-			
-			$scope.changeUser = 
-			function() {
-				//user.id = $scope.uID;
-				user.name = ($scope.uName)? $scope.uName : user.name;
-				user.email = ($scope.uMail)? $scope.uMail : user.email;
-			};
-		}
-	] );
-	practice.controller( 'addUserController', [
-		'$scope',
-		'$location',
-		function( $scope, $location ) {
-			$scope.submit = 
-			function() {
-				$location.path('/user/'+ $scope.name +'/'+ $scope.email);
-			};
-		}
-	] );
-	
-	
-	practice.service( 'SubscriptionService', [
-		'$q',
-		function( $q ) {
-		try {
-			this.getUsers = function() {
-				/* Skip ajax call because data is already on the page;
-				 * resolve promise immediately
-				 */
-				var userList = [],
-					defer = $q.defer();
-				$('.user-list').each( function( idx ) {
-					var data = this.innerHTML.match(/^(.+\s.+)\s(.+)$/);
-					var user = {
-						name: (!!data)? data[1]: "No name",
-						email: (!!data)? data[2]: "No@Email",
-						id: (idx + 1),
-						isSubscriber: false
-					};
-					userList.push(user);
-				} );
-				defer.resolve( userList );
-				
-				return defer.promise;
-			};
-			
-			this.updateParticipants = function( users ) {
-				var defer = $q.defer();
-				defer.resolve();
-				return defer.promise;
-			};
-		} catch(e) {
-			Debugger.log( e.stack );
-		}
-		}
-	] );
-	practice.controller( 'selectSubscribersController', [
-		'$scope',
-		'SubscriptionService',
-		function( $scope, SubscriptionService ) {
-		try {
-			$scope.model = {};
-			
-			SubscriptionService.getUsers().then( function( users) {
-				Debugger.log( users );
-				$scope.model.users = users;
-			} );
-			
-			$scope.watchSubscribers = function( newValue, oldValue ) {
-				if( (newValue === oldValue) || (!newValue) ) return;
-				$scope.model.selected.isSubscriber = true;
-			};
-			
-			$scope.$watch('model.selected', $scope.watchSubscribers);
-			
-			$scope.removeSubscriber = function( subscriber ) {
-				subscriber.isSubscriber = false;
-				$scope.model.selected = null; // reset choice
-			}
-			
-			$scope.saveChanges = function() {
-				SubscriptionService.updateUsers($scope.model.users).then(
-					function() {
-						/* Handle save success */
-					},
-					function() {
-						/* Handle save failure */
-					}
-				)
-			}
-		} catch(e) {
-			Debugger.log( e.stack );
-		}
-		}
-	] );
-	
-	
-	practice.controller( 'typeBoxController', function($scope) {
-	try {	
-		$scope.MAX_LEN = 100;
-		$scope.WARN_LEN = 10;
-		$scope.greeting = "You said,";
-		$scope.usrmsg = $scope.usrmsg || "";
-		$scope.longmsg = false;
-		
-		$scope.remaining = function() {
-			if(! $scope.usrmsg ) return $scope.MAX_LEN;
-			
-			var remains = $scope.MAX_LEN - $scope.usrmsg.length;
-			return( remains > 0 )?
-				remains:
-				0;
-		};
-		
-		$scope.warning = function() {
-			if(! $scope.usrmsg ) return false;
-			
-			var remains = $scope.MAX_LEN - $scope.usrmsg.length;
-			return( remains < $scope.WARN_LEN );
-		};
-	
-		$scope.transformField = function() {
-			if(! $scope.usrmsg ) return $scope.longmsg;
-			
-		try {
-			if ($scope.usrmsg.length > 20) {
-				$scope.longmsg = true;
-			} else {
-				$scope.longmsg = false;				
-			}
-		} catch (e) {
-			Debugger.log( "Failed to update usrmsg box: "+ e.stack );
-		} finally {
-			return $scope.longmsg;
-		}
-			
-		};
-	} catch(e) {
-		Debugger.log( e.stack );
-	}
-	} );
-	practice.directive( 'practiceUserMessage', function() {
-	try {
-		return {
-			restrict: 	'C',
-			replace: 	true,
-			//transclude:	true,
-			template: 	'<span data-reactid={{reactid}}>'+
-							'<input '+
-								'data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-hide="longmsg"></input>'+
-							'<textarea  '+
-								'data-ng-model="usrmsg" data-ng-change="transformField()" data-ng-show="longmsg"></textarea>'+
-						'</span>',
-			link: function( scope, element, attrs ) {
-				var $lilBox = angular.element( element.children()[0] );
-				var $bigBox = angular.element( element.children()[1] );
-				
-				/* Handel React id from original template element */
-				if( attrs['reactid'] ) scope.reactid = attrs['reactid'];
-				
-				scope.$watch(scope.transformField, function( v ){
-					setTimeout(function() {
-						if(! v ) {
-							$lilBox[0].focus();
-							$lilBox[0].selectionStart = 
-								$lilBox[0].selectionEnd = 
-								$lilBox[0].value.length;
-						} else {
-							$bigBox[0].focus();
-							$bigBox[0].selectionStart = 
-								$bigBox[0].selectionEnd = 
-								$bigBox[0].value.length;
-						}
-					}, 3);
-					Debugger.log( v, "practiceUserMessage: $1" );
-				} );
-			}
-		};
-	} catch(e) {
-		Debugger.log( e.stack );
-	}
-	} );
-	practice.directive( 'practiceSvgMessage', function() {
-	try {
-		return {
-			restrict: 	'C',
-			//transclude:	true,
-			// the following two configuration options are 
-			// required for SVG custom elements.
-			templateNamespace: 'svg',
-			replace: true, 
-			template: 	'<tspan data-ng-model="usrmsg" data-ng-hide="longmsg"  data-ng-change="transformField()">{{usrmsg}}</tspan>',
-			link: function( scope, element, attrs ) {
-				var $lilBox = angular.element( element.children()[0] );
-				var $bigBox = angular.element( element.children()[1] );
-				
-				/* Handel React id from original template element */
-				if( attrs['reactid'] ) scope.reactid = attrs['reactid'];
-				
-				scope.$watch(scope.transformField, function( v ){
-					setTimeout(function() {
-						if(! v ) {
-							$lilBox[0].focus();
-							$lilBox[0].selectionStart = 
-								$lilBox[0].selectionEnd = 
-								$lilBox[0].value.length;
-						} else {
-							$bigBox[0].focus();
-							$bigBox[0].selectionStart = 
-								$bigBox[0].selectionEnd = 
-								$bigBox[0].value.length;
-						}
-					}, 3);
-					Debugger.log( v, "practiceUserMessage: $1" );
-				} );
-			}
-		};
-	} catch(e) {
-		Debugger.log( e.stack );
-	}
-	} );
-	
-	try {
-	module.exports = practice;
-	} catch(e) {} finally { 1; }
 
 
 /***/ },

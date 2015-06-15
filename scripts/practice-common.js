@@ -64,6 +64,10 @@ practice.controller( 'addUserController', [
 ] );
 
 
+/* Adapted from "AngularJS blog series – MVC in AngularJS"
+ * by Denis O’Sullivan (appnexus tech blog)
+ * http://techblog.appnexus.com/2014/angularjs-blog-series-mvc-in-angularjs/
+ */
 practice.service( 'SubscriptionService', [
 	'$q',
 	function( $q ) {
