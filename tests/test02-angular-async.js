@@ -1,4 +1,4 @@
-/* From 'Mastering Web Application Development With AngularJS'
+/* Adapted from "Mastering Web Application Development With AngularJS"
  * by Pawel Kozlowski and Peter Bacon
  *
  * Use angular mock objects to test async functionallity

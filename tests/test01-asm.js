@@ -1,8 +1,10 @@
-/* From http://asmjs.org/spec/latest/#introduction
+/* Adapted from http://asmjs.org/spec/latest/#introduction
+ *
  * In a JavaScript engine that supports AOT compilation of asm.js, 
  * calling the module on a proper global object and heap buffer would 
  * link the exports object to use the statically compiled functions.
  */
+
 describe("Test GeometricMean: \n", function() {
  
     beforeEach(function(){
@@ -16,7 +18,7 @@ describe("Test GeometricMean: \n", function() {
     it("Should initialize...\n", function() {
 		var heap = new ArrayBuffer(0x1000); //new ArrayBuffer(0x10000);
 
-		var START = 2, END = 8;
+		var START = 8, END = 64;
 		Debugger.log( 
 			"start:\t"+ (START|0) +", "+
 			"end:\t"+ (END|0) 	

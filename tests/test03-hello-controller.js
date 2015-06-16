@@ -1,5 +1,5 @@
-/* From 'Learning AngularJS'
- * by Ken Williamson
+/* Adapted from "Learning AngularJS"
+ * by Ken Williamson (O'Reilly, 2015)
  *
  * Test HelloController
  */
@@ -10,7 +10,7 @@ describe( 'Hello Controller...', function() {
 	beforeEach( function() { Debugger.on = true; } );
 	beforeEach( module('practice-common') );
 	beforeEach( inject(
-		function( $rootScope, $controller ) {
+		function( $controller, $rootScope ) {
 			scope = $rootScope.$new();
 			ctrl = $controller('HelloController', { $scope: scope });
 		}
@@ -18,11 +18,15 @@ describe( 'Hello Controller...', function() {
 	
 	afterEach( function() { Debugger.on = false; } );
 	
-	it( 'shoud have method for greeting', function() {
+	it( 'should be available', function() {
+		expect(ctrl).not.toBe(undefined);
+	} );
+	
+	it( 'should have method for greeting', function() {
 		expect(scope.greet).toEqual(jasmine.any(Function));
 	} );
 	
-	it( 'shoud create initial greeting', function() {
+	it( 'should create initial greeting', function() {
 		var greeting = Debugger.log( scope.greet("Controller") );
 		expect(greeting).toEqual("Hello, Controller!");
 	} );

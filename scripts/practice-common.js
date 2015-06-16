@@ -30,16 +30,18 @@ try {
 } );
 
 /* Adapted from "Learning AngularJS"
- * by Ken Williamson (O'Reilly)
+ * by Ken Williamson (O'Reilly, 2015)
  */
 practice.controller( 'userController', [
 	'$scope',
 	'$routeParams',
 	function( $scope, $routeParams ) {
+	try {
+		"debugger";
 		var user;
 		$scope.user = user = 
 		{
-			"id": 0,
+			"id": $routeParams.id || 0,
 			"name": $routeParams.name || "User",
 			"email": $routeParams.email || "user@email.com"
 		};
@@ -50,6 +52,11 @@ practice.controller( 'userController', [
 			user.name = ($scope.uName)? $scope.uName : user.name;
 			user.email = ($scope.uMail)? $scope.uMail : user.email;
 		};
+	
+		Debugger.log( this );
+	} catch(e) {
+		Debugger.log( e.stack );
+	}
 	}
 ] );
 practice.controller( 'addUserController', [

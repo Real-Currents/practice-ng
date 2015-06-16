@@ -1,4 +1,13 @@
 describe("Test props and methods of global function, Debugger: \n", function() {
+
+	var consoleReporter = new (jasmineRequire.ConsoleReporter())({
+		timer: new jasmine.Timer, 
+		print: function () {
+			Debugger.log.apply(console,arguments);
+		}
+	});
+	jasmine.getEnv().addReporter(consoleReporter); // Add reporter to execution
+	jasmine.DEFAULT_TIMEOUT_INTERVAL = 0xFFFFFF;
  
     beforeEach(function(){
         Debugger.on = true;
@@ -12,18 +21,9 @@ describe("Test props and methods of global function, Debugger: \n", function() {
 
 		Debugger.log( 'jasmine-version: ' + jasmine.version );
 
-		jasmine.DEFAULT_TIMEOUT_INTERVAL = 0xFFFFFF;
 		Debugger.log( 
 				"Async timeout is "+ 
 				 jasmine.DEFAULT_TIMEOUT_INTERVAL/(1000*60) +" minutes" );
-
-		var consoleReporter = new (jasmineRequire.ConsoleReporter())({
-			timer: new jasmine.Timer, 
-			print: function () {
-				Debugger.log.apply(console,arguments);
-			}
-		});
-		jasmine.getEnv().addReporter(consoleReporter); // Add reporter to execution
 		
 	} );
  
