@@ -71,6 +71,23 @@ practice.controller( 'addUserController', [
 ] );
 
 
+/* Adapted from http://jsfiddle.net/zargyle/G32c9/ 
+ */
+practice.directive('ngPlaceholder', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      placeholder: '=ngPlaceholder'
+    },
+    link: function(scope, elem, attr) {
+      scope.$watch('placeholder',function() {
+        elem[0].placeholder = scope.placeholder;
+      });
+    }
+  }
+});
+
+
 /* Adapted from "AngularJS blog series – MVC in AngularJS"
  * by Denis O’Sullivan (appnexus tech blog)
  * http://techblog.appnexus.com/2014/angularjs-blog-series-mvc-in-angularjs/
@@ -85,16 +102,17 @@ practice.service( 'SubscriptionService', [
 			 */
 			var userList = [],
 				defer = $q.defer();
-			$('.user-list').each( function( idx ) {
-				var data = this.innerHTML.match(/^(.+\s.+)\s(.+)$/);
+			
+			window.users.forEach(function( data, idx ) {
 				var user = {
-					name: (!!data)? data[1]: "No name",
-					email: (!!data)? data[2]: "No@Email",
 					id: (idx + 1),
-					isSubscriber: false
+					name: (!!data)? data.name: "No name",
+					email: (!!data)? data.email: "No@Email",
+					isSubscriber: (!!data)? data.isSubscriber: false
 				};
+				
 				userList.push(user);
-			} );
+			});
 			defer.resolve( userList );
 			
 			return defer.promise;
@@ -109,7 +127,7 @@ practice.service( 'SubscriptionService', [
 		Debugger.log( e.stack );
 	}
 	}
-] );
+]);
 practice.controller( 'selectSubscribersController', [
 	'$scope',
 	'SubscriptionService',
@@ -148,7 +166,7 @@ practice.controller( 'selectSubscribersController', [
 		Debugger.log( e.stack );
 	}
 	}
-] );
+]);
 
 
 practice.controller( 'typeBoxController', function($scope) {

@@ -9,13 +9,13 @@
 		<form>
 			<li>
 				<label for="uname">Change Name:</label>
-				<input id="uname" type="text" data-ng-model="uName" required />
+				<input id="uname" name="uname" type="text" data-ng-model="uName" data-ng-placeholder="user.name" required />
 			</li>
 			<li>
 				<label for="umail">Change Email:</label>
-				<input id="umail" type="text" data-ng-model="uMail" required />
+				<input id="umail" name="umail" type="text" data-ng-model="uMail" data-ng-placeholder="user.email" required />
 			</li>
-			<li><button data-ng-click="changeUser()">Change User</button></li>
-
+			<li><button type="submit" data-ng-click="changeUser()">Change User</button></li>
+			<br />
 		</form>
 	</ul>

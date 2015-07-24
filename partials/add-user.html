@@ -5,14 +5,14 @@
 		<form data-ng-controller="addUserController"
 			  data-ng-submit="submit()">
 			<li>
-				<label for="uname">Name:</label>
-				<input id="uname" type="text" data-ng-model="name" required />
+				<label for="uname">Name: </label>
+				<input id="uname" type="text" data-ng-model="name" placeholder="New User Name" required />
 			</li>
 			<li>
-				<label for="umail">Email:</label>
-				<input id="umail" type="text" data-ng-model="email" required />
+				<label for="umail">Email: </label>
+				<input id="umail" type="text" data-ng-model="email" placeholder="New User Email" required />
 			</li>
 			<li><button id="f1" type="submit">Add User</button></li>
-
+			<br />
 		</form>
 	</ul>

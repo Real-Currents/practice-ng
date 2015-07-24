@@ -13,47 +13,47 @@
 <body data-ng-app="practice-angularjs">
 	
 	<div data-ng-view></div>
+
+	<script type="text/javascript" src="data/users.json"></script>
 	
-	<br />
-	<span class="user-list" id="A.-Leonetti0">A. Leonetti a0@adventure-works.com</span><br />
+	<div id="message"></div>
 
-	<span class="user-list" id="A.-Wright1">A. Wright a1@adventure-works.com</span><br />
+	<script type="text/javascript">
+	/*[CDATA[*/	
+	setTimeout(function() {
+		window.document.forms[0].onsubmit = function( event ) {			
+			var form = event.target,
+				req = new XMLHttpRequest(),
+				url = "/process";
 
-	<span class="user-list" id="Aaron-Con2">Aaron Con aaron0@adventure-works.com</span><br />
+			if( form['uname'].value ) 
+				url += (url.match(/\?/) === null)? "?uname="+ form['uname'].value : "&uname="+ form['uname'].value;
+			if( form['umail'].value ) 
+				url += (url.match(/\?/) === null)? "?umail="+ form['umail'].value : "&umail="+ form['umail'].value;
 
-	<span class="user-list" id="Aaron-Con3">Aaron Con aaron1@adventure-works.com</span><br />
+			req.onload = function( event ) {
+				var data = (event.currentTarget && event.currentTarget.responseText)? 
+					JSON.parse(event.currentTarget.responseText) || event.currentTarget.responseText:
+					"No Response";
+				window.console.log( data );
+				
+				if( data.message ) {
+					window.message.innerHTML = data.message;	
+				}
+				
+				return true;
+			};
 
-	<span class="user-list" id="Aaron-Hughes4">Aaron Hughes aaron10@adventure-works.com</span><br />
+			req.open('GET', url, true);
 
-	<span class="user-list" id="Aaron-Flores5">Aaron Flores aaron11@adventure-works.com</span><br />
+			req.send();
 
-	<span class="user-list" id="Aaron-Washington6">Aaron Washington aaron12@adventure-works.com</span><br />
+			event.preventDefault();
 
-	<span class="user-list" id="Aaron-Butler7">Aaron Butler aaron13@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Simmons8">Aaron Simmons aaron14@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Foster9">Aaron Foster aaron15@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Gonzales10">Aaron Gonzales aaron16@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Bryant11">Aaron Bryant aaron17@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Alexander12">Aaron Alexander aaron18@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Russell13">Aaron Russell aaron19@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Nicholls14">Aaron Nicholls aaron2@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Griffin15">Aaron Griffin aaron20@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Diaz16">Aaron Diaz aaron21@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Hayes17">Aaron Hayes aaron22@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Zhang18">Aaron Zhang aaron23@adventure-works.com</span><br />
-
-	<span class="user-list" id="Aaron-Wang19">Aaron Wang aaron24@adventure-works.com</span><br />
-
+			return true;
+		};
+	}, 3333);
+	/*]]*/
+	</script>
 	
 </body></html>
