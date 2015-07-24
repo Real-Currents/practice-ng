@@ -3,9 +3,9 @@ module.exports = {
 	context: __dirname,
     entry: "./scripts/main",
     output: {
-        path: __dirname + "/dist",
-        filename: "main.js",
-		sourceMapFilename: "[file].map"
+        path: __dirname,
+        filename: "index.js",
+		sourceMapFilename: "./scripts/[file].map"
     },
 	devtool: "source-map"
 };

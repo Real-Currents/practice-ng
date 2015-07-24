@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 	// Advantage: No server required, can run app from filesystem
 	// Disadvantage: Requests are not blocked until bundle is available,
 	//               can serve an old app on too fast refresh
-	grunt.registerTask("default", ["webpack:devBuild", "watch"]);
+	grunt.registerTask("default", ["webpack:devBuild"]); //, "watch"]);
 
 	// Production build
 	//grunt.registerTask("build", ["webpack:build"]);

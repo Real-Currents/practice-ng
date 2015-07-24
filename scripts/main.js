@@ -8,6 +8,7 @@
  */
 'use strict';
 try {
+	require("../libs/jquery/dist/jquery.min");
 	require("../libs/AngularJS/dist/angular.min");
 	require("../libs/AngularJS/dist/angular-route.min");
 

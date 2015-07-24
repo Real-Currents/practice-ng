@@ -247,8 +247,8 @@ try {
 		replace: true, 
 		template: 	'<tspan data-ng-model="usrmsg" data-ng-hide="longmsg"  data-ng-change="transformField()">{{usrmsg}}</tspan>',
 		link: function( scope, element, attrs ) {
-			var $lilBox = angular.element( element.children()[0] );
-			var $bigBox = angular.element( element.children()[1] );
+			var $lilBox = $( element.children()[0] ); //angular.element( element.children()[0] );
+			var $bigBox = $( element.children()[1] ); //angular.element( element.children()[1] );
 			
 			/* Handel React id from original template element */
 			if( attrs['reactid'] ) scope.reactid = attrs['reactid'];
