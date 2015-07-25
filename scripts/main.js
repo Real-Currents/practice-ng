@@ -11,7 +11,7 @@ try {
 var Debugger = require("./Debugger"),
 	practice = require("./practice-common");
 	
-var jQuery = require("../libs/jquery/dist/jquery.min");
+	require("../libs/jquery/dist/jquery.min");
 	require("../libs/AngularJS/dist/angular.min");
 	require("../libs/AngularJS/dist/angular-route.min");
 } catch(e) {} finally { 1; }
@@ -65,15 +65,13 @@ main.config([
 main.controller('formController', [
 	'$scope', 
 	'$http',
+	'$location',
 	'Users',
-	function( $scope, $http, Users ) {
-		Debugger.on = true;
+	function( $scope, $http, $location, Users ) {
 		
 		$scope.formData = {};
 		
 		$scope.formSubmit = function() {
-			var params = jQuery.param($scope.formData);
-			Debugger.log( params );
 			
 			$http({
 				method: 'GET',
@@ -86,6 +84,10 @@ main.controller('formController', [
 					
 					if( data.message ) {
 						window.responseMessage.innerHTML = data.message;	
+					}
+					
+					if( data.success ) {
+						$location.path('/user/'+ data.Name +'/'+ data.Email);
 					}
 					
 					return true;

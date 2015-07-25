@@ -57,7 +57,7 @@
 	var Debugger = __webpack_require__(1),
 		practice = __webpack_require__(2);
 		
-	var jQuery = __webpack_require__(3);
+		__webpack_require__(3);
 		__webpack_require__(5);
 		__webpack_require__(7);
 	} catch(e) {} finally { 1; }
@@ -111,15 +111,13 @@
 	main.controller('formController', [
 		'$scope', 
 		'$http',
+		'$location',
 		'Users',
-		function( $scope, $http, Users ) {
-			Debugger.on = true;
+		function( $scope, $http, $location, Users ) {
 			
 			$scope.formData = {};
 			
 			$scope.formSubmit = function() {
-				var params = jQuery.param($scope.formData);
-				Debugger.log( params );
 				
 				$http({
 					method: 'GET',
@@ -132,6 +130,10 @@
 						
 						if( data.message ) {
 							window.responseMessage.innerHTML = data.message;	
+						}
+						
+						if( data.success ) {
+							$location.path('/user/'+ data.Name +'/'+ data.Email);
 						}
 						
 						return true;
