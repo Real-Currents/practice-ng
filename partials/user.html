@@ -1,7 +1,8 @@
 <!-- Adapted from "Learning AngularJS"
   -- by Ken Williamson (O'Reilly, 2015)
   -->
-	<ul style="text-align:left; list-style:none; background-color:#CCF; border-bottom:2px solid #FFF;">
+	<ul data-ng-controller="formController as formCtrl"
+		style="text-align:left; list-style:none; background-color:#CCF; border-bottom:2px solid #FFF;">
 		<li><b>Name:</b> {{user.name}}</li>
 		<li><b>Email:</b> {{user.email}}</li>
 		<li><b>ID:</b> {{user.id}}</li>
@@ -15,7 +16,7 @@
 				<label for="umail">Change Email:</label>
 				<input id="umail" name="umail" type="text" data-ng-model="uMail" data-ng-placeholder="user.email" required />
 			</li>
-			<li><button type="submit" data-ng-click="changeUser()">Change User</button></li>
+			<li><button type="submit" data-ng-click="user.change(uName, uMail)">Change User</button></li>
 			<br />
 		</form>
 	</ul>

@@ -16,11 +16,22 @@
 
 	<script type="text/javascript" src="data/users.json"></script>
 	
-	<div id="message"></div>
+	<div id="responseMessage"></div>
 
 	<script type="text/javascript">
 	/*[CDATA[*/	
-	setTimeout(function() {
+	/* Lesson adapted from "Submittin Ajax Forms: The AngularJS Way" 
+	 * by Chris Sevilleja
+	 * https://scotch.io/tutorials/submitting-ajax-forms-the-angularjs-way
+	 *
+	 * Basically, first setup an HTML form template and use a native js 
+	 * function to process submission via AJAX. Then, convert the form 
+	 * function into an AngularJS controller
+	 */
+	setTimeout(function() { 
+		/* Placing native submit function inside timeout block so that it 
+		 * is applied to form template *after* inclusion and compilation
+		 */
 		window.document.forms[0].onsubmit = function( event ) {			
 			var form = event.target,
 				req = new XMLHttpRequest(),
@@ -38,7 +49,7 @@
 				window.console.log( data );
 				
 				if( data.message ) {
-					window.message.innerHTML = data.message;	
+					window.responseMessage.innerHTML = data.message;	
 				}
 				
 				return true;

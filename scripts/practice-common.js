@@ -3,15 +3,16 @@
  */
 'use strict';
 try {
-var $ = require("../libs/jquery/dist/jquery.min");
-	require("../libs/AngularJS/dist/angular.min");
-	
 var Debugger = require("./Debugger");
+	
+	require("../libs/jquery/dist/jquery.min");
+	require("../libs/AngularJS/dist/angular.min");
+	require("../libs/AngularJS/dist/angular-resource.min");
 } catch(e) {} finally { 1; }
 
 Debugger.on = true;
 
-var practice = angular.module('practice-common', []);
+var practice = angular.module('practice-common', [ 'ngResource' ]);
 
 
 practice.controller( 'HelloController', function($scope) {
@@ -32,34 +33,50 @@ try {
 /* Adapted from "Learning AngularJS"
  * by Ken Williamson (O'Reilly, 2015)
  */
-practice.controller( 'userController', [
+practice.controller('userController', [
 	'$scope',
 	'$routeParams',
-	function( $scope, $routeParams ) {
+	'Users',
+	function( $scope, $routeParams, Users ) {
 	try {
-		"debugger";
-		var user;
-		$scope.user = user = 
-		{
-			"id": $routeParams.id || 0,
-			"name": $routeParams.name || "User",
-			"email": $routeParams.email || "user@email.com"
-		};
+		var userId = $routeParams.id || 1;
 		
-		$scope.changeUser = 
-		function() {
-			//user.id = $scope.uID;
-			user.name = ($scope.uName)? $scope.uName : user.name;
-			user.email = ($scope.uMail)? $scope.uMail : user.email;
-		};
+		$scope.user = {};
+		
+		if( $routeParams.name || $routeParams.email ) {
+			$scope.user = Users.addUser({
+				"id": $routeParams.id || 0,
+				"name": $routeParams.name || "No User",
+				"email": $routeParams.email || "No Email"
+			});
+		} else {
+			Users.getById(userId).then(function( user ) {
+				Debugger.log( user );
+
+				if( user ) {
+					$scope.user = user;
+				} else {
+					$scope.user = Users.addUser({
+						"id": $routeParams.id || 0,
+						"name": $routeParams.name || "No User",
+						"email": $routeParams.email || "No Email"
+					});
+				}
+
+				$scope.user.change = 
+				function( uName, uMail ) {
+					user.name = (uName)? uName : user.name;
+					user.email = (uMail)? uMail : user.email;
+				};
+			});
+		}
 	
-		Debugger.log( this );
 	} catch(e) {
 		Debugger.log( e.stack );
 	}
 	}
-] );
-practice.controller( 'addUserController', [
+]);
+practice.controller('addUserController', [
 	'$scope',
 	'$location',
 	function( $scope, $location ) {
@@ -68,7 +85,77 @@ practice.controller( 'addUserController', [
 			$location.path('/user/'+ $scope.name +'/'+ $scope.email);
 		};
 	}
-] );
+]);
+
+
+practice.factory('Users', [
+	'$q',
+	'$resource',
+	function( $q, $resource ) {
+		var defer = $q.defer(),
+			que = [],
+			users = $resource("/data/users.json", {}, {
+				get: { method: 'GET', cache: false, isArray: true }
+			}),
+			userList = {};
+				
+		users.get(
+			{}, 
+			function success( res ) {
+				if( res ) res.forEach(function( data, idx ) {
+					userList[(idx + 1)] = {
+						id: (idx + 1),
+						name: (!!data)? data.name: "No Name",
+						email: (!!data)? data.email: "No Email"
+					};
+				});
+				
+				if( que !== null ) que.forEach(function( data, idx ) {
+					if( data.match(/getById\((\d+)\)/) !== null )
+						return defer.resolve(userList[ que.shift().match(/(\d+)/)[1] ]);
+				});
+				else return defer.resolve(userList);
+			},
+			function failure( err ) {
+				Debugger.log( err, "Error: $1");
+				return defer.resolve();
+			}
+		);
+		
+		users.getAll = function() {
+			if( defer.promise.$$state.status ) {
+				var getAll = {};
+				getAll.then = function( callback ) {
+					callback(userList);
+				}
+				return getById;
+				
+			} else {
+				return defer.promise;
+			}
+		};
+
+		users.getById = function( id ) {
+			if( defer.promise.$$state.status ) {
+				var getById = {};
+				getById.then = function( callback ) {
+					callback(userList[id]);
+				}
+				return getById;
+				
+			} else {
+				que.push("getById("+ id +")")
+				return defer.promise;
+			}
+		};
+
+		users.addUser = function( user ) {
+			return user;
+		};
+		
+		return users;
+	}
+]);
 
 
 /* Adapted from http://jsfiddle.net/zargyle/G32c9/ 
@@ -135,7 +222,7 @@ practice.controller( 'selectSubscribersController', [
 	try {
 		$scope.model = {};
 		
-		SubscriptionService.getUsers().then( function( users) {
+		SubscriptionService.getUsers().then( function( users ) {
 			Debugger.log( users );
 			$scope.model.users = users;
 		} );

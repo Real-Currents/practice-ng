@@ -1,4 +1,4 @@
-var users = [
+[
 	{"id":1,"name":"A. Leonetti","email":"a0@adventure-works.com","isSubscriber":false},
 	{"id":2,"name":"A. Wright","email":"a1@adventure-works.com","isSubscriber":false},
 	{"id":3,"name":"Aaron Con","email":"aaron0@adventure-works.com","isSubscriber":false},
