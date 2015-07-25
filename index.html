@@ -26,12 +26,9 @@
 	 *
 	 * Basically, first setup an HTML form template and use a native js 
 	 * function to process submission via AJAX. Then, convert the form 
-	 * function into an AngularJS controller
+	 * function into an AngularJS controller... (see scripts/main.js)
 	 */
-	setTimeout(function() { 
-		/* Placing native submit function inside timeout block so that it 
-		 * is applied to form template *after* inclusion and compilation
-		 */
+	/*
 		window.document.forms[0].onsubmit = function( event ) {			
 			var form = event.target,
 				req = new XMLHttpRequest(),
@@ -63,7 +60,7 @@
 
 			return true;
 		};
-	}, 3333);
+	*/
 	/*]]*/
 	</script>
 	
