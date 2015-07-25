@@ -4,22 +4,30 @@
 	<ul data-ng-controller="formController as formCtrl"
 		style="text-align:left; list-style:none; margin:0; background-color:#CCF; border-bottom:2px solid #FFF;">
 		<br />
-		<li><b>Name:</b> {{user.name}}</li>
-		<li><b>Email:</b> {{user.email}}</li>
-		<li><b>ID:</b> {{user.id}}</li>
+		<li><b>Name:</b> <span data-ng-class="(formErrors.name)? 'warning': ''">{{user.name}}</span></li>
+		<li><b>Email:</b> <span data-ng-class="(formErrors.mail)? 'warning': ''">{{user.email}}</span></li>
+		<li><b>ID:</b> <span>{{user.id}}</span></li>
 
-		<form data-ng-submit="formSubmit()">
+		<form name="userForm" novalidate data-ng-submit="formSubmit(user.id, userForm.$valid)">
 			<br />
 			<li>
 				<label for="uname">Change Name:</label>
-				<input id="uname" name="uname" type="text" data-ng-model="formData.uname" data-ng-placeholder="user.name" required />
+				<input id="uname" name="uname" type="text" required
+					   data-ng-model="formData.uname" data-ng-placeholder="user.name" data-ng-minlength="3" />
 			</li>
 			<li>
 				<label for="umail">Change Email:</label>
-				<input id="umail" name="umail" type="text" data-ng-model="formData.umail" data-ng-placeholder="user.email" required />
+				<input id="umail" name="umail" type="email" required
+					   data-ng-model="formData.umail" data-ng-placeholder="user.email" />
+			</li>
+			<li>
+				<label for="vmail">Verify Email:</label>
+				<input id="vmail" name="vmail" type="email" required
+					   data-ng-model="vmail" data-ng-pattern="formData.umail" />
 			</li>
 			<li><button type="submit" 
-						data-ng-click="user.change(formData.uname, formData.umail)">Change User</button></li>
+						data-ng-click="user.change(formData.uname, formData.umail)"
+						data-ng-disabled="userForm.$invalid">Change User</button></li>
 			<br />
 		</form>
 	</ul>

@@ -60,7 +60,8 @@ main.config([
  * by Chris Sevilleja
  * https://scotch.io/tutorials/submitting-ajax-forms-the-angularjs-way
  *
- * ... here's the AngularJS form controller 
+ * ... here's the AngularJS form controller, also using validation ala
+ * https://scotch.io/tutorials/angularjs-form-validation
  */
 main.controller('formController', [
 	'$scope', 
@@ -70,30 +71,36 @@ main.controller('formController', [
 	function( $scope, $http, $location, Users ) {
 		
 		$scope.formData = {};
-		
-		$scope.formSubmit = function() {
-			
-			$http({
-				method: 'GET',
-				url: '/process',
-				params: $scope.formData,
-				headers: { 'Content-type': 'application/x-www-form-urlencoded' }
-			})
-				.success(function( data ) {
-					Debugger.log( data );
-					
-					if( data.message ) {
-						window.responseMessage.innerHTML = data.message;	
-					}
-					
-					if( data.success ) {
-						$location.path('/user/'+ data.Name +'/'+ data.Email);
-					}
-					
-					return true;
-				});
-			
-			return true;
+		$scope.formErrors = {};		
+		$scope.formSubmit = function( userID, isValid ) {
+			if(! isValid ) {
+				window.responseMessage.innerHTML = '<p class="warning">Form Data Is Not Valid!</p>'
+			} else { 
+				$http({
+					method: 'GET',
+					url: '/process',
+					params: $scope.formData,
+					headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+				})
+					.success(function( data ) {
+
+						if( data.message ) {
+							window.responseMessage.innerHTML = data.message;	
+						}
+
+						if( data.success ) {
+							$scope.formErrors = {};
+							$location.path('/user/'+ userID +'/'+ data.Name +'/'+ data.Email);
+
+						} else if( data.errors ) {
+							$scope.formErrors = data.errors;
+						}
+
+						return true;
+					});
+
+				return true;
+			}
 		};
 	}
 ]);
