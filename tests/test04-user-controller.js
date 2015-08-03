@@ -25,6 +25,8 @@ describe( 'User Controller...', function() {
 		expect(ctrl).not.toBe(undefined);
 	} );
 	
+	/* Need to implement asynchronous testing from this point on */
+	
 	it( 'should define a user', function() {
 		expect(scope.user).toEqual(jasmine.any(Object));
 	} );

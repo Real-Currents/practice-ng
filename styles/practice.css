@@ -3,13 +3,24 @@
 }
 
 body.ng-scope > div.ng-scope {
-	width:			240px;;
-	min-height:			200px;
+	width:			320px;
+	min-height:		200px;
 	text-align:		center; 
 	margin:			20px auto;
 	border-radius:	12px 12px; 
 	border:			4px solid rgba(25%,25%,25%,0.5);
 	overflow:		auto;
+}
+
+div.ng-scope * li {
+	width:			240px;
+	margin-bottom: 	20px;
+	text-align: 	left;
+}
+
+div.ng-scope * li input {
+	float: 			right;
+	width:			50%;
 }
 
 * *.aspNetHidden, * *.ui-loader-default {

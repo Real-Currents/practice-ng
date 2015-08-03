@@ -1,9 +1,21 @@
-module.exports = function(grunt) {
-	require("matchdep").filterAll("grunt-*").forEach(grunt.loadNpmTasks);
+
+
+function Grunt( grunt ) {
 	var webpack = require("webpack");
 	var webpackConfig = require("./webpack.config");
 	
 	grunt.initConfig({
+		bgShell: {
+			_defaults: {
+				bg: true
+			},
+			karma: {
+				cmd: 'node_modules/karma/bin/karma start'
+			},
+			server: {
+				cmd: 'morbo practice-server.pl'
+			}
+		},
 		webpack: {
 			options: webpackConfig,
 			devBuild: {
@@ -25,8 +37,8 @@ module.exports = function(grunt) {
 			*/
 		},
 		watch: {
-			files: ["./**/*", "./scripts/**/*"],
-			tasks: ["webpack:devBuild"],
+			files: [ "./scripts/*.js", "./scripts/**/*.js" ],
+			tasks: [ "webpack:devBuild" ],
 			options: {
 				spawn: false,
 			}
@@ -37,8 +49,13 @@ module.exports = function(grunt) {
 	// Advantage: No server required, can run app from filesystem
 	// Disadvantage: Requests are not blocked until bundle is available,
 	//               can serve an old app on too fast refresh
-	grunt.registerTask("default", ["webpack:devBuild"]); //, "watch"]);
+	grunt.registerTask("default", [ "webpack:devBuild", "watch" ]);
+	grunt.registerTask("dev", [ "bgShell:karma", "bgShell:server", "webpack:devBuild", "watch" ]);
 
 	// Production build
 	//grunt.registerTask("build", ["webpack:build"]);
+	
+	require("matchdep").filterAll("grunt-*").forEach(grunt.loadNpmTasks);
 };
+
+module.exports = Grunt;

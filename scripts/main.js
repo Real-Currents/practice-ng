@@ -7,6 +7,7 @@
  * $ grunt
  */
 'use strict';
+
 try {
 var Debugger = require("./Debugger"),
 	practice = require("./practice-common");
@@ -56,7 +57,7 @@ main.config([
 	}
 ]);
 
-/* Adapted from "Submittin Ajax Forms: The AngularJS Way" 
+/* Adapted from "Submitting Ajax Forms: The AngularJS Way" 
  * by Chris Sevilleja
  * https://scotch.io/tutorials/submitting-ajax-forms-the-angularjs-way
  *

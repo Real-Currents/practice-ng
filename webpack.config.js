@@ -7,5 +7,7 @@ module.exports = {
         filename: "index.js",
 		sourceMapFilename: "./scripts/[file].map"
     },
-	devtool: "source-map"
+	devtool: "source-map",
+	keepalive: true,
+	watch: true
 };

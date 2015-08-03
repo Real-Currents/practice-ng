@@ -51,7 +51,7 @@ practice.controller('userController', [
 			});
 		} else {
 			Users.getById(userId).then(function( user ) {
-				Debugger.log( user );
+				//Debugger.log( user );
 
 				if( user ) {
 					$scope.user = user;
@@ -65,8 +65,8 @@ practice.controller('userController', [
 
 				$scope.user.change = 
 				function( uName, uMail ) {
-					user.name = (uName)? uName : user.name;
-					user.email = (uMail)? uMail : user.email;
+					$scope.user.name = (uName)? uName : $scope.user.name;
+					$scope.user.email = (uMail)? uMail : $scope.user.email;
 				};
 			});
 		}
@@ -102,6 +102,8 @@ practice.factory('Users', [
 		users.get(
 			{}, 
 			function success( res ) {
+				//Debugger.log( res );
+				
 				if( res ) res.forEach(function( data, idx ) {
 					userList[(idx + 1)] = {
 						id: (idx + 1),
@@ -114,7 +116,8 @@ practice.factory('Users', [
 					if( data.match(/getById\((\d+)\)/) !== null )
 						return defer.resolve(userList[ que.shift().match(/(\d+)/)[1] ]);
 				});
-				else return defer.resolve(userList);
+				
+				return defer.resolve(userList);
 			},
 			function failure( err ) {
 				Debugger.log( err, "Error: $1");
@@ -150,6 +153,7 @@ practice.factory('Users', [
 		};
 
 		users.addUser = function( user ) {
+			userList[user.id] = user;
 			return user;
 		};
 		
@@ -181,27 +185,21 @@ practice.directive('ngPlaceholder', function() {
  */
 practice.service( 'SubscriptionService', [
 	'$q',
-	function( $q ) {
+	'Users',
+	function( $q, Users ) {
 	try {
 		this.getUsers = function() {
-			/* Skip ajax call because data is already on the page;
-			 * resolve promise immediately
-			 */
-			var userList = [],
+			var subscriberList = [],
 				defer = $q.defer();
 			
-			window.users.forEach(function( data, idx ) {
-				var user = {
-					id: (idx + 1),
-					name: (!!data)? data.name: "No name",
-					email: (!!data)? data.email: "No@Email",
-					isSubscriber: (!!data)? data.isSubscriber: false
-				};
-				
-				userList.push(user);
+			Users.getAll().then(function( userList ) {
+				for( var u in userList ) {
+					userList[u].isSubscriber = false;
+					subscriberList.push(userList[u]);
+				}
+				defer.resolve( subscriberList );
 			});
-			defer.resolve( userList );
-			
+
 			return defer.promise;
 		};
 		
@@ -223,7 +221,6 @@ practice.controller( 'selectSubscribersController', [
 		$scope.model = {};
 		
 		SubscriptionService.getUsers().then( function( users ) {
-			Debugger.log( users );
 			$scope.model.users = users;
 		} );
 		
