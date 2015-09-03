@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app=brew-everywhere>
+<head><title>Brew Everywhere</title>
+    <meta name=viewport content="width=device-width, initial-scale=1.0">
+    <meta charset=utf-8>
+    <link rel=stylesheet href=app.full.min.css>
+</head>
+<body>
+<div id=fb-root></div>
+<div>
+    <div id=content class=container>
+        <dialog></dialog>
+        <wait-spinner></wait-spinner>
+        <div class=row>
+            <div ng-view=""></div>
+        </div>
+        <notification-list></notification-list>
+    </div>
+</div>
+<script src=https://apis.google.com/js/plusone.js data-remove=exclude></script>
+<script src=https://apis.google.com/js/client:plusone.js data-remove=exclude></script>
+<script src=app.full.min.js></script>
+</body>
+</html>
