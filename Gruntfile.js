@@ -10,7 +10,7 @@ function Grunt( grunt ) {
 				bg: true
 			},
 			karma: {
-				cmd: 'node_modules/karma/bin/karma start'
+				cmd: 'karma start'
 			},
 			server: {
 				cmd: 'morbo practice-server.pl'
@@ -37,7 +37,11 @@ function Grunt( grunt ) {
 			*/
 		},
 		watch: {
-			files: [ "./scripts/*.js", "./scripts/**/*.js" ],
+			files: [
+				"./scripts/*.js", 
+				"./scripts/**/*.js",
+				"./tests/*.js"
+			],
 			tasks: [ "webpack:devBuild" ],
 			options: {
 				spawn: false,

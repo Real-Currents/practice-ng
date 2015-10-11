@@ -28,6 +28,9 @@ module.exports = function(config) {
 		'scripts/[A-Z][a-zA-Z|\-]*.js',
 		'scripts/angular-async.js',
 		'scripts/practice-common.js',
+		'scripts/controllers/*.js',
+		'scripts/directives/*.js',
+		'scripts/services/*.js',
 		'tests/*.js'
     ],
 

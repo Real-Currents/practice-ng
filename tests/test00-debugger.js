@@ -16,20 +16,19 @@ describe("Test props and methods of global function, Debugger: \n", function() {
     afterEach(function() {
         Debugger.on = false;
     });
-	
-	it( "Should report jasmine props", function() {
-
-		Debugger.log( 'jasmine-version: ' + jasmine.version );
-
-		Debugger.log( 
-				"Async timeout is "+ 
-				 jasmine.DEFAULT_TIMEOUT_INTERVAL/(1000*60) +" minutes" );
-		
-	} );
  
     it("Should exist...\n", function() {
         expect( typeof Debugger ).toBe( 'function' );
     });
+	
+	it("Should report jasmine props", function() {
+		expect(Debugger.on).toBe(true);
+		Debugger.log( 'jasmine-version: ' + jasmine.version );
+		Debugger.log( 
+			"Async timeout is "+ 
+			jasmine.DEFAULT_TIMEOUT_INTERVAL/(1000*60) +" minutes" 
+		);
+	});
  
     it("Should print argument to console...\n", function() {
         expect( typeof Debugger.log( "Hello, String" ) ).toBe( 'string' );
